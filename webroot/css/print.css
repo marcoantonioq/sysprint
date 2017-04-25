@@ -1,0 +1,54 @@
+@charset "utf-8";
+
+html ::-webkit-scrollbar {
+  width: 8px;
+}
+html ::-webkit-scrollbar-button {
+  width: 8px;
+  height:5px;
+}
+
+html ::-webkit-scrollbar-track {
+  background:#eee;
+  border: thin solid lightgray;
+  box-shadow: 0px 0px 3px #dfdfdf inset;
+  border-radius:10px;
+}
+html ::-webkit-scrollbar-thumb {
+  background: #999;
+  border: thin solid gray;
+  border-radius:10px;
+}
+html ::-webkit-scrollbar-thumb:hover {
+  background:#7d7d7d;
+}
+
+/** General Style Info **/
+body {
+	margin: 0 auto;
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 13px;
+	font-weight: normal;
+	line-height: 18px;
+	color: #404040;
+	background: rgba(203, 203, 210, 0.15);
+}
+
+html,
+body {
+  height: 100%;
+}
+.container {
+    border-radius: 4px;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05), 0 0 0 1px rgba(63, 63, 68, 0.1);
+    background-color: #FFFFFF;
+    margin-bottom: 30px;
+}
+
+.input {
+  margin: 10px 0px 10px 0;
+}
+
+.tab-content {
+  padding: 10px 0 10px;
+}
