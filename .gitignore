@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 /vendor/*
 /config/app.php
 /tmp/*
@@ -29,4 +28,3 @@
 /app/Config/core.php
 /app/Config/database.php
 /vendors/*
->>>>>>> b633956980ab656ea76bb3817e183a6895a28d63
