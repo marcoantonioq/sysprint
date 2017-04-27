@@ -45,9 +45,12 @@ class SettingsController extends AppController
     }
 
     public function update(){
-        $command = "cd ".ROOT."; git tag | tail -n 1";
-        exec($command, $version);
-        pr($version); exit;
+        if ($this->request->is(['patch', 'post', 'put'])) {
+            $version = $this->Settings->execComand("cd ".ROOT."; git fetch; git pull --tag; git reset --hard HEAD; git reset --hard origin/master; chmod 777 -R ./");
+        }
+
+        $version = $this->Settings->execComand("cd ".ROOT."; git tag | tail -n 1");
+        $this->set(compact('version'));
     }
 
     public function delete($id = null)
