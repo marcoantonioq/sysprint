@@ -214,6 +214,7 @@ Type::build('timestamp')
  */
 
 Plugin::loadAll([
+    'App' => ['routes' => true, 'autoload' => true],
     'AuthUser' => ['routes' => true, 'autoload' => true],
     'Template' => ['routes' => true, 'autoload' => true],
     'Prints' => ['routes' => true, 'autoload' => true],

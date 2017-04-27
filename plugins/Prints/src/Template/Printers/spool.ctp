@@ -3,11 +3,10 @@
   * @var \App\View\AppView $this
   */
 
-
 ?>
 
 <div class="row-fluid">
-    <?= $this->Form->create('Spool', [
+    <?= $this->Form->create($spool, [
         'type'=>'file',
         'class' => 'form-horizontal',
     ]); ?>
@@ -22,24 +21,21 @@
             <legend><?php echo __('Imprimir'); ?></legend>
 
             <?php
-
-
-            echo $this->Form->input('user_id', array(
+            echo $this->Form->control('user_id', array(
                 'label'=>false,
                 'empty'=>'Selecione usuário...',
                 'class'=>'form-control',
             ));
 
-            echo $this->Form->input('file.', array(
+            echo $this->Form->control('file[]', array(
                 'label'=>false,
                 'type'=>'file',
                 'multiple'=>true,
             ));
 
-            echo $this->Form->input('printer', [
+            echo $this->Form->control('printers', [
                 'label'=>false,
                 'empty'=>"Selecione impressora...",
-                'options'=>$printer,
                 'class'=>'form-control',
             ]);
 
@@ -47,7 +43,7 @@
             
             <div class="col-sm-6">                
             <?php  
-            echo $this->Form->input('copies', array(
+            echo $this->Form->control('params.copies', array(
                 'div' => 'col-sm-2',
                 'label' => 'Cópias:',
                 'value'=>1,
@@ -59,7 +55,7 @@
 
             <div class="col-sm-6">                 
             <?php 
-            echo $this->Form->input('pages', array(
+            echo $this->Form->control('params.pages', array(
                 'label'=>"Página(s):",
                 'type'=>'text',
                 'div'=>'span4',
@@ -74,7 +70,7 @@
         <div id="Options" class="tab-pane fade">
                <?php 
 
-               echo $this->Form->input('double_sided', array(
+               echo $this->Form->control('params.double_sided', array(
                 'label'=>"Frente e verso:",
                 'type'=>'select',
                 'class'=>'form-control',
@@ -86,7 +82,7 @@
                 )
             ));
 
-            echo $this->Form->input('page_set', array(
+            echo $this->Form->control('params.page_set', array(
                 'label'=>"Apenas imprimir:",
                 'type'=>'select',
                 'class'=>'form-control',
@@ -97,7 +93,7 @@
                 )
             ));
 
-            echo $this->Form->input('media', array(
+            echo $this->Form->control('params.media', array(
                 'label'=>"Tamanho do papel:",
                 'type'=>'select',
                 'class'=>'form-control',
@@ -110,7 +106,7 @@
                 )
             ));
 
-            echo $this->Form->input('orientation', array(
+            echo $this->Form->control('params.orientation', array(
                 'label'=>"Orientação",
                 'type'=>'select',
                 'class'=>'form-control',
@@ -128,7 +124,7 @@
              
         <?php 
 
-            echo $this->Form->input('host', array(
+            echo $this->Form->control('host', array(
                 'label'=>ucfirst(__('host')),
                 'type'=>'hide',
                 'value'=>$_SERVER['REMOTE_ADDR'],

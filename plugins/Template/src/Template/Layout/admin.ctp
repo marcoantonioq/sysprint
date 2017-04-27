@@ -49,7 +49,7 @@
           </button>
           <ul class="dropdown-menu" role="menu">              
               <li>
-                <?= $this->Html->link('Perfil', ['plugin'=>'AuthUser', 'controller'=>'users', 'action' => 'index']) ?>
+                <?= $this->Html->link('Perfil', ['plugin'=>'AuthUser', 'controller'=>'users', 'action' => 'perfil']) ?>
               </li>
               <li> <!-- <li class="active"> -->
                 <?= $this->Html->link('Impressoras', ['plugin'=>'prints', 'controller'=>'printers', 'action' => 'index']) ?>
@@ -57,7 +57,9 @@
               <li> <!-- <li class="active"> -->
                 <?= $this->Html->link('Charts', ['plugin'=>'Charts', 'controller'=>'jobs', 'action' => 'index']) ?>
               </li>
-              <li><a href="#">Configurações</a></li>
+              <li>
+                <?= $this->Html->link('Configurações', ['plugin'=>'App', 'controller'=>'settings', 'action' => 'index']) ?>
+              </li>
               <li><a href="#">Ajuda</a></li>
           </ul>
         </div>

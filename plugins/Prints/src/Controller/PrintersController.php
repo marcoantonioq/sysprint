@@ -2,7 +2,7 @@
 namespace Prints\Controller;
 
 use Prints\Controller\AppController;
-
+use Prints\Form\SpoolForm;
 /**
  * Printers Controller
  *
@@ -48,18 +48,17 @@ class PrintersController extends AppController
      */
     public function spool()
     {
+        $spool = new SpoolForm();
         if ($this->request->is('post')) {
-            $printer = $this->Printers->patchEntity($printer, $this->request->getData());
-            if ($this->Printers->save($printer)) {
-                $this->Flash->success(__('The printer has been saved.'));
+            $this->Printers->sendPrint($this->request->data);
+            pr($this->request->data); exit;
+            $thiss->Flash->success(__('Impressão enviada'));
+            // $this->Printers->sendEmail($user['User']['email'], $message);
 
-                return $this->redirect(['action' => 'index']);
-            }
-            $this->Flash->error(__('The printer could not be saved. Please, try again.'));
+            return $this->redirect(['action' => 'index']);
         }
-        $users = $this->Printers->Users->find('list', ['limit' => 200]);
-        pr($users); exit;
-        $printer = $printers = $this->Printers->getpLpList();
-        $this->set(compact('printer', 'users'));
+        $users = $this->Printers->Users->find('list');
+        $printers = $this->Printers->getpLpList();
+        $this->set(compact('spool','printers', 'users'));
     }
 }

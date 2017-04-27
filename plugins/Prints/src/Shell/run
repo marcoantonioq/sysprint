@@ -1,0 +1,12 @@
+#!/bin/bash
+
+case "$1" in
+	'user')
+		whoami
+		;;
+	'printer')
+		php /opt/lampp/htdocs/cakephp/sysprint-3.6/bin/cake.php prints.printer
+		;;
+	'lpadmin')
+		$($@)
+esac

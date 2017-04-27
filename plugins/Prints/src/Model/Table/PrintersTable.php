@@ -6,22 +6,7 @@ use Cake\ORM\RulesChecker;
 use Cake\ORM\Table;
 use Cake\Validation\Validator;
 
-/**
- * Printers Model
- *
- * @property \Cake\ORM\Association\HasMany $Jobs
- * @property \Cake\ORM\Association\BelongsToMany $Users
- *
- * @method \Prints\Model\Entity\Printer get($primaryKey, $options = [])
- * @method \Prints\Model\Entity\Printer newEntity($data = null, array $options = [])
- * @method \Prints\Model\Entity\Printer[] newEntities(array $data, array $options = [])
- * @method \Prints\Model\Entity\Printer|bool save(\Cake\Datasource\EntityInterface $entity, $options = [])
- * @method \Prints\Model\Entity\Printer patchEntity(\Cake\Datasource\EntityInterface $entity, array $data, array $options = [])
- * @method \Prints\Model\Entity\Printer[] patchEntities($entities, array $data, array $options = [])
- * @method \Prints\Model\Entity\Printer findOrCreate($search, callable $callback = null, $options = [])
- *
- * @mixin \Cake\ORM\Behavior\TimestampBehavior
- */
+
 class PrintersTable extends Table
 {
 
@@ -33,7 +18,6 @@ class PrintersTable extends Table
      */
     public function initialize(array $config)
     {
-        $this->addBehavior('Prints.Lpadmin');
 
 
         parent::initialize($config);
@@ -43,6 +27,7 @@ class PrintersTable extends Table
         $this->setPrimaryKey('id');
 
         $this->addBehavior('Timestamp');
+        $this->addBehavior('Prints.Lpadmin');
 
         $this->hasMany('Jobs', [
             'foreignKey' => 'printer_id',
@@ -66,10 +51,10 @@ class PrintersTable extends Table
     {
         $validator
             ->integer('id')
-            ->allowEmpty('id', 'create');
+            ->allowEmpty('id');
 
         $validator
-            ->requirePresence('name', 'create')
+            ->requirePresence('name')
             ->notEmpty('name')
             ->add('name', 'unique', ['rule' => 'validateUnique', 'provider' => 'table']);
 
@@ -79,7 +64,7 @@ class PrintersTable extends Table
 
         $validator
             ->boolean('allow')
-            ->allowEmpty('allow');
+            ->allowEmpty('allow');   
 
         $validator
             ->integer('quota_period')
@@ -113,4 +98,57 @@ class PrintersTable extends Table
 
         return $rules;
     }
+
+    public function sendPrint($data){
+        $_imagetypes = array(
+            'application/odt',
+            'application/pdf',
+            'application/txt',
+            // 'application/doc',
+            // 'application/msword',
+            // 'application/wps-office.doc',
+            // 'application/wps-office.docx',
+            // 'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+            // 'application/wps-office.xls',
+            // 'application/wps-office.xlt',
+            // 'image/bmp',
+            // 'image/vnd.microsoft.icon',
+            // 'image/x-icon',
+            // 'text/plain',
+            'image/gif',
+            'image/jpeg',
+            'image/pjpeg',
+            'image/png',
+        );
+
+        $user = $this->Users->get($data['user_id'])->get('username');
+        $printer = $data['printers'];
+
+        foreach ($data['file'] as $file) {
+            // $path = $this->convertTo($file);
+            $path = $file['tmp_name'];
+
+            if ( array_search($file['type'], $_imagetypes) === false ){
+                echo "O tipo de arquivo \"{$file['name']}\" enviado é inválido! (Arquivos válidos: PDF, txt, png, jpge)"; exit;                
+            }
+
+            $data['params'] = array_filter($data['params'], function($value) { return $value !== ''; });
+            $params = " -o fit-to-page";
+            $keyparams = [
+                'copies' => ' -n ',
+                'pages' => ' -o page-ranges=',
+                'double_sided' => ' -o sides=',
+                'page_set' => ' -o page-set=',
+                'media' => ' -o media=',
+                'orientation' => ' -o orientation-requested=',
+            ];
+            foreach ($data['params'] as $key => $value)
+                $params .= "{$keyparams[$key]}{$value} ";
+            $cmd = $this->testComand("lp")." -U {$user} -d {$printer} $params $path"; // pr($comand); exit;
+            $this->execComand($cmd);
+            exec("rm -rf $path {$file['tmp_name']}");
+        }
+        return true;
+    }
+
 }

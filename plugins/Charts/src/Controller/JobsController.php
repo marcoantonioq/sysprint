@@ -55,11 +55,11 @@ class JobsController extends AppController
         if ($this->request->is('post')) {
             $job = $this->Jobs->patchEntity($job, $this->request->getData());
             if ($this->Jobs->save($job)) {
-                $this->Flash->success(__('The job has been saved.'));
+                $this->Flash->success(__('The job has been saved.'), ['plugin' => 'Template']);
 
                 return $this->redirect(['action' => 'index']);
             }
-            $this->Flash->error(__('The job could not be saved. Please, try again.'));
+            $this->Flash->error(__('The job could not be saved. Please, try again.'), ['plugin' => 'Template']);
         }
         $users = $this->Jobs->Users->find('list', ['limit' => 200]);
         $printers = $this->Jobs->Printers->find('list', ['limit' => 200]);
@@ -82,11 +82,11 @@ class JobsController extends AppController
         if ($this->request->is(['patch', 'post', 'put'])) {
             $job = $this->Jobs->patchEntity($job, $this->request->getData());
             if ($this->Jobs->save($job)) {
-                $this->Flash->success(__('The job has been saved.'));
+                $this->Flash->success(__('The job has been saved.'), ['plugin' => 'Template']);
 
                 return $this->redirect(['action' => 'index']);
             }
-            $this->Flash->error(__('The job could not be saved. Please, try again.'));
+            $this->Flash->error(__('The job could not be saved. Please, try again.'), ['plugin' => 'Template']);
         }
         $users = $this->Jobs->Users->find('list', ['limit' => 200]);
         $printers = $this->Jobs->Printers->find('list', ['limit' => 200]);
@@ -106,9 +106,9 @@ class JobsController extends AppController
         $this->request->allowMethod(['post', 'delete']);
         $job = $this->Jobs->get($id);
         if ($this->Jobs->delete($job)) {
-            $this->Flash->success(__('The job has been deleted.'));
+            $this->Flash->success(__('The job has been deleted.'), ['plugin' => 'Template']);
         } else {
-            $this->Flash->error(__('The job could not be deleted. Please, try again.'));
+            $this->Flash->error(__('The job could not be deleted. Please, try again.'), ['plugin' => 'Template']);
         }
 
         return $this->redirect(['action' => 'index']);
