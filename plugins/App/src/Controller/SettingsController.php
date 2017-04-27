@@ -22,7 +22,6 @@ class SettingsController extends AppController
 
         if ($this->request->is(['patch', 'post', 'put'])) {
             
-            $this->Settings->setPrintSettings($this->request->getData('Printers'));
             $setting = $this->Settings->patchEntity($setting, $this->request->getData());
 
             if ($this->Settings->save($setting)) {
@@ -31,11 +30,24 @@ class SettingsController extends AppController
                 $this->Flash->error('Não foi possível guardar a definição.', ['plugin' => 'Template']);                
             }
         }        
-        
-        $printers = $this->Settings->getpLpPrinters();
-        $this->set(compact('setting', 'printers'));
+        $this->set(compact('setting'));
         $this->set('_serialize', ['setting']);
         $this->render("Settings/edit");
+    }
+
+    public function quota()
+    {
+        if ($this->request->is(['patch', 'post', 'put'])) {
+            $this->Settings->setPrintSettings($this->request->getData('Printers'));
+        }        
+        $printers = $this->Settings->getpLpPrinters();
+        $this->set(compact('printers'));
+    }
+
+    public function update(){
+        $command = "cd ".ROOT."; git tag | tail -n 1";
+        exec($command, $version);
+        pr($version); exit;
     }
 
     public function delete($id = null)
