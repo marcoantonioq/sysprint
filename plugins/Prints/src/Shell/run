@@ -9,4 +9,7 @@ case "$1" in
 		;;
 	'lpadmin')
 		$($@)
+		;;
+	'getLpPrinters')
+		sudo cat /etc/cups/printers.conf | grep "<Printer \|<DefaultPrinter " | sed 's/<Printer \|<DefaultPrinter //' | sed 's/>//'
 esac

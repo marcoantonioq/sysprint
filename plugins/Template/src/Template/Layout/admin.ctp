@@ -26,13 +26,15 @@
 
 <?= $this->Html->meta('icon') ?>
 <?= $this->Html->css([
-'bootstrap.min.css',
-// 'bootstrap-theme.min.css',
-'print.css',
+  'Template.bootstrap.min.css',
+  'Template.bootstrap-theme.min.css',
+  'Template.print.css',
+  'Template.multi-select.css',
 ]); ?>
 <?= $this->Html->script([
-'jquery.min.js',
-'bootstrap.min.js',
+  'Template.jquery.min.js',
+  'Template.bootstrap.min.js',
+  'Template.multi-select.js',
 ]);?>
 
 <?= $this->fetch('meta') ?>
@@ -42,28 +44,31 @@
 
 <body>
     <div class="container-fluid">
-
-      <div class="btn-group hidden-print">
-            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-              Mais <span class="caret"></span>
-          </button>
-          <ul class="dropdown-menu" role="menu">              
-              <li>
-                <?= $this->Html->link('Perfil', ['plugin'=>'AuthUser', 'controller'=>'users', 'action' => 'perfil']) ?>
-              </li>
-              <li> <!-- <li class="active"> -->
-                <?= $this->Html->link('Impressoras', ['plugin'=>'prints', 'controller'=>'printers', 'action' => 'index']) ?>
-              </li>
-              <li> <!-- <li class="active"> -->
-                <?= $this->Html->link('Charts', ['plugin'=>'Charts', 'controller'=>'jobs', 'action' => 'index']) ?>
-              </li>
-              <li>
-                <?= $this->Html->link('Configurações', ['plugin'=>'App', 'controller'=>'settings', 'action' => 'index']) ?>
-              </li>
-              <li><a href="#">Ajuda</a></li>
-          </ul>
+    
+      <nav class="navbar navbar-default">
+      <div class="container-fluid">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Mais <span class="caret"></span></a>
+            <ul class="dropdown-menu">
+                <li> <?= $this->Html->link('Perfil', ['plugin'=>'AuthUser', 'controller'=>'users', 'action' => 'perfil']) ?></li>
+                <li> <!-- <li class="active"> --> <?= $this->Html->link('Impressoras', ['plugin'=>'prints', 'controller'=>'printers', 'action' => 'index']) ?></li>
+                <li><?= $this->Html->link('Charts', ['plugin'=>'Charts', 'controller'=>'jobs', 'action' => 'index']) ?></li>
+                <li><?= $this->Html->link('Configurações', ['plugin'=>'App', 'controller'=>'settings', 'action' => 'index']) ?></li>
+                <li><a href="#">Ajuda</a></li>
+              </ul>
+              
         </div>
-      <?= $this->Flash->render() ?>
+        <ul class="nav navbar-nav">
+            <li><?= $this->Html->link( 'Geral', ['plugin'=>'app','controller'=>'settings', 'action' => 'index'])?></li>
+            <li class="active"><?= $this->Html->link( 'Impressoras', ['plugin'=>'prints','controller'=>'printers', 'action' => 'quota'])?></li>
+            <li><?= $this->Html->link( 'Atualizar', ['plugin'=>'app','controller'=>'settings', 'action' => 'update'])?></li>
+        </ul>
+    </div>
+    </nav>
+
+    <?= $this->Flash->render() ?>
+
+
 
 
       <div class="container clearfix">
@@ -71,5 +76,14 @@
       </div>
       <footer></footer>
     </div>
+
+    <script type="text/javascript">
+      // multible select
+      $('select[multiple=multiple]').multiSelect({ 
+        selectableOptgroup: true,
+        selectableHeader: "<div class='custom-header'>Itens selecionáveis</div>",
+        selectionHeader: "<div class='custom-header'>Itens selecionados</div>"
+      });
+    </script>
 </body>
 </html>

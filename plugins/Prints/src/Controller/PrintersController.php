@@ -19,7 +19,7 @@ class PrintersController extends AppController
     public function index()
     {
         // pr($this->Auth->user('id'));
-        $printers = $this->Printers->getpLpPrinters();
+        $printers = $this->Printers->getLpPrinters();
         $this->set(compact('printers'));
         $this->set('_serialize', ['printers']);
     }
@@ -40,6 +40,27 @@ class PrintersController extends AppController
         $this->set('printer', $printer);
         $this->set('_serialize', ['printer']);
     }
+
+    public function quota()
+    {    
+        $printsLp = $this->Printers->getLpPrinters();
+        foreach ($printsLp as $value) {
+            $printer[] = $this->Printers->get($value['id'], [
+                'contain' => ['Users']
+            ]);
+        }  
+
+        if ($this->request->is(['patch', 'post', 'put'])) {
+            foreach ($this->request->getData() as $key => $value) {
+                $this->Printers->setPrintSettings($value);
+                $save = $this->Printers->patchEntity($printer[$key], $value);
+                $this->Printers->save($save);
+            }
+        }
+        $users = $this->Printers->Users->find('list', ['limit' => 200]);
+        $this->set(compact('printer', 'users'));
+    }
+
 
     /**
      * spool method

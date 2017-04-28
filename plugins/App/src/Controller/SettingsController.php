@@ -35,21 +35,14 @@ class SettingsController extends AppController
         $this->render("Settings/edit");
     }
 
-    public function quota()
-    {
-        if ($this->request->is(['patch', 'post', 'put'])) {
-            $this->Settings->setPrintSettings($this->request->getData('Printers'));
-        }        
-        $printers = $this->Settings->getpLpPrinters();
-        $this->set(compact('printers'));
-    }
 
     public function update(){
         if ($this->request->is(['patch', 'post', 'put'])) {
             $version = $this->Settings->execComand("cd ".ROOT."; git fetch; git pull --tag; git reset --hard HEAD; git reset --hard origin/master; chmod 777 -R ./");
+            $this->Flash->success("Atualizado com sucesso!", ['plugin' => 'Template']);
         }
 
-        $version = $this->Settings->execComand("cd ".ROOT."; git tag | tail -n 1");
+        exec("cd ".ROOT."; git tag | tail -n 1",$version);
         $this->set(compact('version'));
     }
 

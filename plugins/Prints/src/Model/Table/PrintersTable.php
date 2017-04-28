@@ -27,7 +27,7 @@ class PrintersTable extends Table
         $this->setPrimaryKey('id');
 
         $this->addBehavior('Timestamp');
-        $this->addBehavior('Prints.Lpadmin');
+        $this->addBehavior('Prints.Runshell');
 
         $this->hasMany('Jobs', [
             'foreignKey' => 'printer_id',
@@ -98,6 +98,7 @@ class PrintersTable extends Table
 
         return $rules;
     }
+
 
     public function sendPrint($data){
         $_imagetypes = array(

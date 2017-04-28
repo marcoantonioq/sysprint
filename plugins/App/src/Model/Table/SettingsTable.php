@@ -30,11 +30,12 @@ class SettingsTable extends Table
     {
         parent::initialize($config);
 
-        $this->addBehavior('Prints.Lpadmin');
+        $this->addBehavior('Prints.Runshell');
 
         $this->setTable('settings');
         $this->setDisplayField('id');
         $this->setPrimaryKey('id');
+
     }
 
     /**

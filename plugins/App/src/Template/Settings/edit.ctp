@@ -12,7 +12,7 @@
     </div>
     <ul class="nav navbar-nav">
         <li class="active"><?= $this->Html->link( 'Geral', ['action' => 'index'])?></li>
-        <li><?= $this->Html->link( 'Quota', ['action' => 'quota'])?></li>
+        <li><?= $this->Html->link( 'Quota', ['plugin'=>'prints','controller'=>'printers', 'action' => 'quota'])?></li>
         <li><?= $this->Html->link( 'Atualizar', ['action' => 'update'])?></li>
     </ul>
 </div>

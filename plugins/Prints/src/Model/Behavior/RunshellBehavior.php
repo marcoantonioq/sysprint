@@ -8,7 +8,7 @@ use Cake\ORM\TableRegistry;
 /**
  * Lpadmin behavior
  */
-class LpadminBehavior extends Behavior
+class RunshellBehavior extends Behavior
 {
 
     /**
@@ -48,77 +48,47 @@ class LpadminBehavior extends Behavior
         return $result[0];
     }
 
-
-
-    private function execRun($cmd, $params){
+    private function execRun($cmd, $params=null){
         // verifica se é root
-        exec("sudo ".ROOT."/plugins/Prints/src/Shell/run user", $output, $return);
-        if($output[0] != "root") {
+        exec("sudo ".ROOT."/plugins/Prints/src/Shell/run user", $output);
+        if(@$output[0] != "root") {
             echo "Add line: nano /etc/sudoers</br>";
-            echo "{$output[0]} ALL= NOPASSWD:".ROOT."/plugins/Prints/src/Shell/run user";
+            echo "(USER_SERVER:{$output[0]}) ALL= NOPASSWD:".ROOT."/plugins/Prints/src/Shell/run user";
             exit;
         } 
         // Executa comando
+        $output=null; $return=false;
         exec("sudo ".ROOT."/plugins/Prints/src/Shell/run $cmd $params", $output, $return);
+        if($return) { echo "</p>Comando <br>'$cmd'<b> não encontrado!!!"; exit; }
         return $output;
     }
-
-    public function execComand($cmd, $params=null){
-        exec($cmd,$result, $return);
-        if(!$result) {
-            echo "</p>Comando '$cmd' falhou!!! </p>:("; exit;
-        }
-        return $result;
-    }
    
-    public function getpLpPrinters($type=null) {
+    public function getLpPrinters($type=null) {
         $printers = TableRegistry::get('Printers');
-        $cmd = $this->testComand("lpstat").' -a | grep \'^[a-z|A-Z|0-9]\' | awk \'{print $1 "][" $2}\'';
-        $values = $this->execComand($cmd);
+        $values = $this->execRun('getLpPrinters');
 
-        foreach ($values as $key => $value) {            
-            $tmp = explode("][",$value);
-            $pvalue = @$printers->findByName($tmp[0])->first();
+        foreach ($values as $key => $value) {
+            $pvalue = @$printers->findByName($value)->first();
             $p = $printers->newEntity();
             if(!empty($pvalue->id)){ 
                 $p = $pvalue;
             }
-            $p->name = $tmp[0];
-            $p->status = $tmp[1];
+            $p->name = $value;
             $printers->save($p);
             $return[] = $p->toArray();
         }
         return $return;
     }
 
-    public function getpLpList($type=null) {
-
-        $return = array();
-        $cmd = $this->testComand("lpstat").' -a | grep \'^[a-z|A-Z|0-9]\' | awk \'{print $1 "][" $2}\'';
-        $values = $this->execComand($cmd);
-        foreach ($values as $key => $value) {
-            $tmp = explode("][",$value);
-            $return[$tmp[0]] = $tmp[0];
-        }
-        return $return;
-    }
-
     public function setPrintSettings($settings)
     {
-
-        $printers = TableRegistry::get('Printers');
+        if(isset($settings['id'])){
+            $settings = [$settings];
+        }
         foreach ($settings as $key => $value) {
-            $p = $printers->get($value['id']);
-            $p->quota_period = $value['quota_period'];
-            $p->page_limite = $value['page_limite'];
-            $p->k_limit = $value['k_limit'];
-            $printers->save($p);
             $return = $this->execRun("lpadmin","  -p '${value['name']}' -o job-quota-period=${value['quota_period']} -o job-page-limit=${value['page_limite']} -o job-k-limit=${value['k_limit']}");
 
         }
 
     }
-
-    
-
 }
