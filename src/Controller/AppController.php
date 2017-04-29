@@ -51,6 +51,7 @@ class AppController extends Controller
                 'loginRedirect' => '/',
                 'logoutRedirect' => '/',
                 'loginAction' => ['plugin' => 'AuthUser','controller' => 'Users','action' => 'login'],
+                'flash' => ['element' => 'Template.error'],
                 'authenticate' => [
                     'Form' => [
                         'fields' => ['username' => 'username','password' => 'password'],

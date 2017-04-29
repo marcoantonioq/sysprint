@@ -79,7 +79,8 @@ class PrintersController extends AppController
             return $this->redirect(['action' => 'index']);
         }
         $users = $this->Printers->Users->find('list');
-        $printers = $this->Printers->getpLpList();
+        $printers = $this->Printers->getLpPrinters();
+        // pr($users); exit;
         $this->set(compact('spool','printers', 'users'));
     }
 }

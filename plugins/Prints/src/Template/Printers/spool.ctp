@@ -10,8 +10,6 @@
         'type'=>'file',
         'class' => 'form-horizontal',
     ]); ?>
-    <fieldset>
-
     <ul class="nav nav-tabs">
         <li class="active"><a data-toggle="tab" href="#Imprimir">Imprimir</a></li>
         <li><a data-toggle="tab" href="#Options">+Opções</a></li>
@@ -149,5 +147,4 @@
          </div>
 
     </div>   
-    </fieldset>
 </div>

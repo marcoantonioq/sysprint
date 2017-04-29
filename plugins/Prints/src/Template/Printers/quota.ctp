@@ -5,8 +5,6 @@
 
 ?>
 
-<hr>
-
 <div class="row-fluid">
     <?= $this->Form->create($printer, [
         'class' => 'form-horizontal'

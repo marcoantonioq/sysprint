@@ -29,8 +29,9 @@ class SettingsController extends AppController
             } else {
                 $this->Flash->error('Não foi possível guardar a definição.', ['plugin' => 'Template']);                
             }
-        }        
-        $this->set(compact('setting'));
+        }
+        exec("cd ".ROOT."; git tag | tail -n 1",$version);
+        $this->set(compact('setting','version'));
         $this->set('_serialize', ['setting']);
         $this->render("Settings/edit");
     }
@@ -38,6 +39,7 @@ class SettingsController extends AppController
 
     public function update(){
         if ($this->request->is(['patch', 'post', 'put'])) {
+            echo "git checkout master; git branch new-branch-to-save-current-commits; git fetch --all; git reset --hard origin/master";
             $version = exec("cd ".ROOT."; git fetch; git pull --tag; git reset --hard HEAD; git reset --hard origin/master; chmod 777 -R ./");
             $this->Flash->success("Atualizado com sucesso!", ['plugin' => 'Template']);
         }
