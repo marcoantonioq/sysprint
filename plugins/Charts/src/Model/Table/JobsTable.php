@@ -9,19 +9,6 @@ use Cake\Validation\Validator;
 /**
  * Jobs Model
  *
- * @property \Cake\ORM\Association\BelongsTo $Users
- * @property \Cake\ORM\Association\BelongsTo $Printers
- *
- * @method \Charts\Model\Entity\Job get($primaryKey, $options = [])
- * @method \Charts\Model\Entity\Job newEntity($data = null, array $options = [])
- * @method \Charts\Model\Entity\Job[] newEntities(array $data, array $options = [])
- * @method \Charts\Model\Entity\Job|bool save(\Cake\Datasource\EntityInterface $entity, $options = [])
- * @method \Charts\Model\Entity\Job patchEntity(\Cake\Datasource\EntityInterface $entity, array $data, array $options = [])
- * @method \Charts\Model\Entity\Job[] patchEntities($entities, array $data, array $options = [])
- * @method \Charts\Model\Entity\Job findOrCreate($search, callable $callback = null, $options = [])
- *
- * @mixin \Cake\ORM\Behavior\TimestampBehavior
- * @mixin \Cake\ORM\Behavior\CounterCacheBehavior
  */
 class JobsTable extends Table
 {

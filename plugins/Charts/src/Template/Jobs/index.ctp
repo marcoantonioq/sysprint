@@ -3,17 +3,89 @@
   * @var \App\View\AppView $this
   */
 ?>
-<nav class="large-3 medium-4 columns" id="actions-sidebar">
-    <ul class="side-nav">
-        <li class="heading"><?= __('Actions') ?></li>
-        <li><?= $this->Html->link(__('New Job'), ['action' => 'add']) ?></li>
-        <li><?= $this->Html->link(__('List Users'), ['controller' => 'Users', 'action' => 'index']) ?></li>
-        <li><?= $this->Html->link(__('New User'), ['controller' => 'Users', 'action' => 'add']) ?></li>
-        <li><?= $this->Html->link(__('List Printers'), ['controller' => 'Printers', 'action' => 'index']) ?></li>
-        <li><?= $this->Html->link(__('New Printer'), ['controller' => 'Printers', 'action' => 'add']) ?></li>
-    </ul>
-</nav>
-<div class="jobs index large-9 medium-8 columns content">
+
+<div class="row-fluid">
+        <?php
+        echo $this->Html->link('<i class="fa fa-print" aria-hidden="true"></i> Imprimir relatório',
+            "#",
+            [
+                'class'=> 'btn btn-default',
+                "onclick"=>"window.print()",
+                'escape'=>false
+            ])." ";
+        echo $this->Html->link('<i class="fa fa-users" aria-hidden="true"></i> Usuários',
+            ['controller' => 'jobs', 'action' => 'users'],
+            [
+                'class'=> 'btn btn-default',
+                'escape'=>false
+            ])." ";
+
+            ?>
+</div>
+
+
+<div class="row-fluid">
+
+    <canvas id="myChartAnaul" ></canvas>
+
+    <?php
+    $month = array();
+    $total = array();
+    $mes = array('', 'Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro');
+
+    foreach ($charts_anual as $charts) {
+        pr($charts->date->toArray()); exit;
+        // $month[] .= ;
+        $total[] .= $charts->sum;
+    }
+    $data = array();
+    $data['labels'] = $month;
+    $data['datasets'][] = array(
+        "label" => 'Mensal',
+        "backgroundColor" => 'rgba(0, 136, 204, 0.3)',
+        "borderColor" => "#08c",
+        "borderWidth" => 1,
+        "hoverBackgroundColor" => "#08c",
+        "data" =>  $total
+        );
+    $dataSet = json_encode($data, JSON_PRETTY_PRINT);
+    pr($dataSet); exit;
+    ?>
+
+
+        <summary>Resumo</summary>
+        <table>
+            <tr>
+                <th>Mês</th>
+                <th>Total</th>
+            </tr>
+            <?php foreach ($data['labels'] as $id => $value): ?>
+            <tr>
+                <td><?php echo $value; ?></td>
+                <td><?php echo number_format($data['datasets'][0]['data'][$id],0,",","."); ?> páginas</td>
+            </tr>
+            <?php endforeach; ?>
+        </table>
+    <script type="text/javascript">
+
+        var ctx = document.getElementById("myChartAnaul");
+        var myChart = new Chart(ctx, {
+            type: 'bar',
+            data: <?=$dataSet; ?>
+        });
+
+    </script>
+
+</div>
+
+
+
+
+
+
+
+
+<div class="row-fluid">
     <h3><?= __('Jobs') ?></h3>
     <table cellpadding="0" cellspacing="0">
         <thead>
