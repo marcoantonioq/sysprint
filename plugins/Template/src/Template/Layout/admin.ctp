@@ -40,6 +40,7 @@
   'Template.jquery.min.js',
   'Template.bootstrap.min.js',
   'Template.multi-select.js',
+  'Template.chart.js',
 ]);?>
 
 <?= $this->fetch('meta') ?>
@@ -53,7 +54,7 @@
 
         <!-- Sidebar -->
         <div id="sidebar-wrapper">
-            <ul class="sidebar-nav">
+            <ul class="sidebar-nav hidden-print">
                 <li class="sidebar-brand">
                     <?= $this->Html->link('Home', '/') ?>
                 </li>
@@ -70,7 +71,7 @@
 
         <!-- Page Content -->
         <div id="page-content-wrapper">
-            <a href="#menu-toggle" id="menu-toggle"><i class="fa fa-angle-double-right fa-2x" aria-hidden="true"></i></a>
+            <a class="hidden-print" href="#menu-toggle" id="menu-toggle"><i class="fa fa-angle-double-right fa-2x" aria-hidden="true"></i></a>
             <div class="container-fluid">
                 <div class="row-fluid">
                     <div class="col-xs-12">
@@ -86,13 +87,6 @@
      <footer></footer>
 
     <script type="text/javascript">
-      // multible select
-      $('select[multiple=multiple]').multiSelect({ 
-        selectableOptgroup: true,
-        selectableHeader: "<div class='custom-header'>Itens selecionáveis</div>",
-        selectionHeader: "<div class='custom-header'>Itens selecionados</div>"
-      });
-
     $("#menu-toggle").click(function(e) {
         e.preventDefault();
         $("#wrapper").toggleClass("toggled");

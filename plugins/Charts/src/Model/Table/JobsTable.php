@@ -93,7 +93,22 @@ class JobsTable extends Table
     {
         $rules->add($rules->existsIn(['user_id'], 'Users'));
         $rules->add($rules->existsIn(['printer_id'], 'Printers'));
-
         return $rules;
+    }
+
+    public function getChartsAnual()
+    {
+        $query = $this->find();
+        return $query->find("all",[])
+            ->select([
+                'Jobs.id',
+                'Jobs.copies',
+                'sum'=>$query->func()->sum('Jobs.copies * Jobs.pages'),
+                'month'=>$query->func()->month([
+                    'Jobs.date' => 'identifier'
+                ]),
+            ])
+            ->group('MONTH(Jobs.date)');
+            // ->where(['Jobs.date >' => new \DateTime('-360 days')]);
     }
 }

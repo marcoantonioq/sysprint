@@ -23,35 +23,7 @@ class JobsController extends AppController
         ];
         $jobs = $this->paginate($this->Jobs);
 
-        $charts_anual = $this->Jobs->find("list",[
-                'keyField' => 'user_id',
-                'valueField' => function ($e) {
-                    $return['sum'] = $e->pages * $e->copies;
-                    $return['month'] = date_format($e->date,"m");
-                    return $return;
-                },
-                'groupField' => 'user_id'
-                // 'valueField' => 'sum(Jobs.pages)*sum(Jobs.copies)',
-                // 'group' => 'MONTH(date)',
-                // 'order' => ['MONTH(date)' => 'ASC'],
-            ]);
-            // ->select([
-            //     'pages'=>'sum(Jobs.pages)',
-            //     'copies'=>'sum(Jobs.copies)',
-            //     'sum'=>'sum(Jobs.pages)*sum(Jobs.copies)',
-            //     'date',
-            // ]);
-            // ->where(['Jobs.date >' => new \DateTime('-30 days')]);
-
-        $mes = array('', 'Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro');
-        // foreach ($charts_anual as $charts) {
-        //     $grafical['month'] .= // $month[] .= ;
-        //     $grafical['total'] .= $charts->sum;
-        // }
-        pr($charts_anual->toArray()); exit;
-
-        // exit;
-
+        $charts_anual = $this->Jobs->getChartsAnual();
         $this->set(compact('jobs','charts_anual'));
         $this->set('_serialize', ['jobs']);
     }

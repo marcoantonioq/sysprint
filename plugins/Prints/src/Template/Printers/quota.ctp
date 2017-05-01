@@ -78,3 +78,13 @@
     <?= $this->Form->button('Salvar Configurações',['class'=>'btn btn-success']) ?>
     <?= $this->Form->end() ?>
 </div>
+<script type="text/javascript">
+    
+      // multible select
+      $('select[multiple=multiple]').multiSelect({ 
+        selectableOptgroup: true,
+        selectableHeader: "<div class='custom-header'>Bloqueados</div>",
+        selectionHeader: "<div class='custom-header'>Liberados</div>"
+      });
+
+</script>
