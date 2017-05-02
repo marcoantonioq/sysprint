@@ -88,7 +88,7 @@
             <div class="row-fluid">
                 <div class="span12">
                     <h3>
-                        Versão atual: <?php echo $version; ?>
+                        Nova versão disponível: <?php echo $version; ?>
                     </h3>
                 </div>
 

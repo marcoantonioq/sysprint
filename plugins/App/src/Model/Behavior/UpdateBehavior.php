@@ -17,17 +17,6 @@ class UpdateBehavior extends Behavior
     private $_branch = '';
     protected $_updateUrl = 'http://github.com/marcoantonioq/sysprint3';
     protected $_updateFile = 'file://';
-    private $dirPermissions = 0755;
-    private $_username = '';
-    private $_password = '';
-    const NO_UPDATE_AVAILABLE = 0;
-    const ERROR_INVALID_ZIP = 10;
-    const ERROR_VERSION_CHECK = 20;
-    const ERROR_INSTALL_DIR = 35;
-    const ERROR_DOWNLOAD_UPDATE = 40;
-    const ERROR_DELETE_TEMP_UPDATE = 50;
-    const ERROR_INSTALL = 60;
-    const ERROR_SIMULATE = 70;
     /**
      * Create new instance
      *
@@ -74,7 +63,7 @@ class UpdateBehavior extends Behavior
     {
         exec("cd {$this->_updateFile}; git ls-remote --tags {$this->_updateUrl} | 
         awk '{print $2}' | grep -v '{}' | awk -F'/' '{print $3}' | tail -n 1",$version);
-        $this->_latestVersion = $version[0];
+        $this->_latestVersion = (isset($version[0]))?$version[0]:$this->setCurrentVersion();
         return $this->_latestVersion;
     }
    
@@ -94,7 +83,7 @@ class UpdateBehavior extends Behavior
     public function update( )
     {
         if($this->checkUpdate()) {
-            // exec("cd {$this->_updateFile}; git clean -f -d ; git reset --hard HEAD ; git pull origin master ; git pull origin master --tag;",$version, $result);
+            exec("cd {$this->_updateFile}; git clean -f -d ; git reset --hard HEAD ; git pull origin master ; git pull origin master --tag;",$version, $result);
             if($result){
                 echo "Atualizado com sucesso";
                 return true;

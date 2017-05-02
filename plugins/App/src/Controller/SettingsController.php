@@ -24,10 +24,8 @@ class SettingsController extends AppController
             $setting = $this->Settings->get(0, ['contain' => []]);
         }
 
-        if ($this->request->is(['patch', 'post', 'put'])) {
-            
+        if ($this->request->is(['patch', 'post', 'put'])) {            
             $setting = $this->Settings->patchEntity($setting, $this->request->getData());
-
             if ($this->Settings->save($setting)) {
                 $this->Flash->success("Salvo com sucesso", ['plugin' => 'Template']);
             } else {
@@ -52,9 +50,7 @@ class SettingsController extends AppController
                 $this->Flash->error("Não foi possivel atualizar!", ['plugin' => 'Template']);
             }
         }
-        $version = $this->Settings->checkUpdate();
-        pr($version); exit;
-        $this->set(compact('version'));
+        return $this->redirect(['action' => 'index']);
     }
 
     public function delete($id = null)
