@@ -1,5 +1,7 @@
 # CakePHP 3
 
+sftp-config.json
+
 /config/app.php
 /tmp/*
 /tmp/cache/models/*

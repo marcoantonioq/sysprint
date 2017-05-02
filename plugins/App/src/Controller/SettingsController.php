@@ -33,8 +33,11 @@ class SettingsController extends AppController
             } else {
                 $this->Flash->error('Não foi possível guardar a definição.', ['plugin' => 'Template']);                
             }
+        }        
+        $version = $this->Settings->checkUpdate();
+        if($version){
+            $this->Flash->error("Atualize para a última versão($version).", ['plugin' => 'Template']);
         }
-        exec("cd ".ROOT."; git tag | tail -n 1",$version);
         $this->set(compact('setting','version'));
         $this->set('_serialize', ['setting']);
         $this->render("Settings/edit");
@@ -43,20 +46,14 @@ class SettingsController extends AppController
 
     public function update(){
         if ($this->request->is(['patch', 'post', 'put'])) {
-
-            $this->setCurrentVersion("");
-            $this->getLatestVersion();
-
-            // link remote
-            exec("git remote add origin http://github.com/marcoantonioq/sysprint3");
-
-
-            $version = exec("cd ".ROOT."; git clean -f -d ; git reset --hard HEAD ; git pull origin master ; git pull origin master --tag; chmod 777 -R ./");
-            
-            $this->Flash->success("Atualizado com sucesso!", ['plugin' => 'Template']);
+            if($this->update()){
+                $this->Flash->success("Atualizado com sucesso!", ['plugin' => 'Template']);
+            } else {
+                $this->Flash->error("Não foi possivel atualizar!", ['plugin' => 'Template']);
+            }
         }
-
-        exec("cd ".ROOT."; git tag | tail -n 1",$version);
+        $version = $this->Settings->checkUpdate();
+        pr($version); exit;
         $this->set(compact('version'));
     }
 

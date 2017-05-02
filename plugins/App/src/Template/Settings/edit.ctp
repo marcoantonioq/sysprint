@@ -35,11 +35,12 @@
         <li class="active"><a data-toggle="tab" href="#Geral">Geral</a></li>
         <li><a data-toggle="tab" href="#AD">AD</a></li>
         <li><a data-toggle="tab" href="#Mail">Mail</a></li>
+        <?php if($version): ?>
         <li><a data-toggle="tab" href="#Update">Update</a></li>
+        <?php endif; ?>
     </ul>
     <div class="tab-content">
-        <div class="tab-content">
-                    
+        <div class="tab-content">                    
             <div id="Geral" class="tab-pane fade in active">
                 <legend>Geral</legend>
                 <?php
@@ -87,7 +88,7 @@
             <div class="row-fluid">
                 <div class="span12">
                     <h3>
-                        Versão atual: <?php echo $version[0]; ?>
+                        Versão atual: <?php echo $version; ?>
                     </h3>
                 </div>
 
