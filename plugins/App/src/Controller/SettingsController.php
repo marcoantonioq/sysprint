@@ -43,11 +43,15 @@ class SettingsController extends AppController
 
     public function update(){
         if ($this->request->is(['patch', 'post', 'put'])) {
+
+            $this->setCurrentVersion("");
+            $this->getLatestVersion();
+
             // link remote
             exec("git remote add origin http://github.com/marcoantonioq/sysprint3");
 
 
-            $version = exec("cd ".ROOT."; git clean -f -d; git reset --hard HEAD; git pull origin master; git pull --tag; ; chmod 777 -R ./");
+            $version = exec("cd ".ROOT."; git clean -f -d ; git reset --hard HEAD ; git pull origin master ; git pull origin master --tag; chmod 777 -R ./");
             
             $this->Flash->success("Atualizado com sucesso!", ['plugin' => 'Template']);
         }

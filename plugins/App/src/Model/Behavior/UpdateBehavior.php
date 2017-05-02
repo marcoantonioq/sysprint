@@ -1,6 +1,5 @@
 <?php
-namespace Prints\Model\Behavior;
-
+namespace APP\Model\Behavior;
 use Cake\ORM\Behavior;
 use Cake\ORM\Table;
 use Cake\ORM\TableRegistry;
@@ -10,17 +9,16 @@ use Cake\ORM\TableRegistry;
  */
 class UpdateBehavior extends Behavior
 {
+    public $_currentVersion = null;
     private $_latestVersion = null;
     private $_updates = null;
     private $_dir = '';
     private $_log = '';
     private $_installDir = '';
     private $_branch = '';
-    protected $_updateUrl = 'https://example.com/updates/';
-    protected $_updateFile = 'update.json';
-    protected $_currentVersion = null;
-    public $dirPermissions = 0755;
-    public $updateScriptName = '_upgrade.php';
+    protected $_updateUrl = 'http://github.com/marcoantonioq/sysprint3';
+    protected $_updateFile = 'file://';
+    private $dirPermissions = 0755;
     private $_username = '';
     private $_password = '';
     const NO_UPDATE_AVAILABLE = 0;
@@ -38,114 +36,61 @@ class UpdateBehavior extends Behavior
      * @param string $installDir
      * @param int    $maxExecutionTime
      */
-    public function __construct($tempDir = null, $installDir = null, $maxExecutionTime = 60)
+    public function __construct(Table $table=null, $settings = null, $installDir = null, $maxExecutionTime = 60)
     {
         // Init logger
-        $this->_latestVersion = new version('0.0.0');
-        $this->_currentVersion = new version('0.0.0');
+
+        $this->setUpdateUrl($settings['_updateUrl']);
+        $this->setUpdateFile($settings['_updateFile']);
+        $this->setCurrentVersion("");
+        $this->getLatestVersion();
+
+
+        pr($this->_currentVersion);
+        pr($this->_latestVersion);
+        // pr($this->_updates);
+        // pr($this->_dir);
+        // pr($this->_log);
+        // pr($this->_installDir);
+        // pr($this->_branch);
+        pr($this->_updateUrl);
+        pr($this->_updateFile);
+
+        exit;
+        $this->setUpdateUrl();
+
     }
 
-
-    /**
-     * Set the update filename.
-     *
-     * @param string $updateFile
-     * @return $this
-     */
     public function setUpdateFile($updateFile)
     {
         $this->_updateFile = $updateFile;
         return $this;
     }
-    /**
-     * Set the update filename.
-     *
-     * @param string $updateUrl
-     * @return $this
-     */
+
     public function setUpdateUrl($updateUrl)
     {
         $this->_updateUrl = $updateUrl;
         return $this;
     }
-    /**
-     * Set the update branch.
-     *
-     * @param string branch
-     * @return $this
-     */
+
     public function setBranch($branch)
     {
         $this->_branch = $branch;
         return $this;
     }
     
-    public function setCache($adapter, $ttl = 3600)
-    {
-        $adapter->setOption('ttl', $ttl);
-        $this->_cache = new Cache($adapter);
-        return $this;
-    }
-    /**
-     * Set the version of the current installed software.
-     *
-     * @param string $currentVersion
-     *
-     * @return bool
-     */
     public function setCurrentVersion($currentVersion)
     {
-        $version = new version($currentVersion);
-        if ($version->valid() === null) {
-            $this->_log->addError(sprintf('Invalid current version "%s"', $currentVersion));
-            return false;
-        }
-        $this->_currentVersion = $version;
-        return $this;
+        exec("cd {$this->_updateFile}; git tag | tail -n 1",$version);
+        $this->_currentVersion = $version[0];
+        return $this->_currentVersion;
     }
-    /**
-     * Set authentication
-     * @param $username
-     * @param $password
-     */
-    public function setBasicAuth($username, $password)
-    {
-        $this->_username = $username;
-        $this->_password = $password;
-    }
-    /**
-     * Set authentication in update method of users and password exist
-     * @return null|resource
-     */
-    private function _useBasicAuth()
-    {
-        if ($this->_username && $this->_password) {
-            return stream_context_create(array(
-                'http' => array(
-                    'header' => "Authorization: Basic " . base64_encode("$this->_username:$this->_password")
-                )
-            ));
-        }
-        return null;
-    }
-    /**
-     * Add a new logging handler.
-     *
-     * @param \Monolog\Handler\HandlerInterface|Monolog\Handler\HandlerInterface $handler See https://github.com/Seldaek/monolog
-     * @return $this
-     */
-    public function addLogHandler(\Monolog\Handler\HandlerInterface $handler)
-    {
-        $this->_log->pushHandler($handler);
-        return $this;
-    }
-    /**
-     * Get the name of the latest version.
-     *
-     * @return vierbergenlars\SemVer\version
-     */
+
     public function getLatestVersion()
     {
+        exec("cd {$this->_updateFile}; git ls-remote --tags {$this->_updateUrl} | 
+        awk '{print $2}' | grep -v '{}' | awk -F'/' '{print $3}' | tail -n 1",$version);
+        $this->_latestVersion = $version[0];
         return $this->_latestVersion;
     }
     /**

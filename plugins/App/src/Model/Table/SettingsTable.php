@@ -31,6 +31,10 @@ class SettingsTable extends Table
         parent::initialize($config);
 
         $this->addBehavior('Prints.Runshell');
+        $this->addBehavior('App.Update',[
+            '_updateUrl'=>'http://github.com/marcoantonioq/sysprint3', 
+            '_updateFile'=>ROOT,
+        ]);
 
         $this->setTable('settings');
         $this->setDisplayField('id');
