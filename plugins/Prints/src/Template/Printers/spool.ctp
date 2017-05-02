@@ -31,10 +31,11 @@
                 'multiple'=>true,
             ));
 
-            echo $this->Form->control('printers', [
+            echo $this->Form->control('printer_id', [
                 'label'=>false,
                 'empty'=>"Selecione impressora...",
                 'class'=>'form-control',
+                'default'=>$print_default,
             ]);
 
             ?>

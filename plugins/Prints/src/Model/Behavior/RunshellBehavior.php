@@ -80,6 +80,17 @@ class RunshellBehavior extends Behavior
         return $return;
     }
 
+    public function getLpListPrinters($printer = null ) {
+        $printers = $this->getLpPrinters();
+        foreach ($printers as $value) {
+            $list[$value['name']] = $value['name'];
+        }
+        // if(!empty($printer) && !empty($list[$printer])){
+        //     $list = [$list[$printer]=>$list[$printer]];
+        // }
+        return $list;
+    }
+
     public function setPrintSettings($settings)
     {
         if(isset($settings['id'])){
@@ -89,6 +100,11 @@ class RunshellBehavior extends Behavior
             $return = $this->execRun("lpadmin","  -p '${value['name']}' -o job-quota-period=${value['quota_period']} -o job-page-limit=${value['page_limite']} -o job-k-limit=${value['k_limit']}");
 
         }
+    }
 
+    public function sendSpool($cmd=''){
+        exec($cmd, $output, $return);
+        if($return) { echo "</p>Comando <b>'$cmd'<b> não encontrado!!!<p>"; pr($output); exit; }
+        
     }
 }

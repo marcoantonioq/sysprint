@@ -22,7 +22,6 @@ class JobsTable extends Table
     public function initialize(array $config)
     {
         parent::initialize($config);
-
         $this->setTable('jobs');
         $this->setDisplayField('id');
         $this->setPrimaryKey('id');
@@ -96,19 +95,66 @@ class JobsTable extends Table
         return $rules;
     }
 
-    public function getChartsAnual()
+
+
+    public function getCharts($type)
     {
         $query = $this->find();
-        return $query->find("all",[])
-            ->select([
-                'Jobs.id',
-                'Jobs.copies',
-                'sum'=>$query->func()->sum('Jobs.copies * Jobs.pages'),
-                'month'=>$query->func()->month([
-                    'Jobs.date' => 'identifier'
-                ]),
-            ])
-            ->group('MONTH(Jobs.date)');
-            // ->where(['Jobs.date >' => new \DateTime('-360 days')]);
+        $datasets['datasets'][] = [
+            "backgroundColor" => [
+                'rgba(54, 162, 235, 0.4)',
+                'rgba(255, 206, 86, 0.4)',
+                'rgba(255, 99, 132, 0.4)',
+                'rgba(75, 192, 192, 0.4)',
+                'rgba(153, 102, 255, 0.4)',
+                'rgba(255, 159, 64, 0.4)',
+            ],
+            "data" =>  null
+        ];
+        switch ($type) {
+            case 'impressoras':
+                $charts_data = $query->find("all",[])
+                        ->select([
+                            'labels'=>'Printers.name',
+                            'sum'=>$query->func()->sum('Jobs.copies * Jobs.pages'),
+                        ])
+                        ->contain(['Printers'])
+                        // ->order(['sum'=>'desc'])
+                        ->group('Printers.id');
+                        // ->where(['Jobs.date >' => new \DateTime('-360 days')]);
+                break;            
+            case 'usuários':
+                $charts_data = $query->find("all",[])
+                    ->select([
+                        'sum'=>$query->func()->sum('Jobs.copies * Jobs.pages'),
+                        'labels'=>'Users.name',
+                    ])
+                    ->contain(['Users'])
+                    ->order(['sum'=>'desc'])
+                    ->group('Jobs.user_id');
+                    // ->where(['Jobs.date >' => new \DateTime('-360 days')]);
+                break;
+            case 'anual':
+                $charts_data = $query->find("all",[])
+                    ->select([
+                        'sum'=>$query->func()->sum('Jobs.copies * Jobs.pages'),
+                        'labels'=>"DATE_FORMAT(Jobs.date,'%m/%Y')",
+                    ])
+                    ->order(['labels'=>'desc'])
+                    ->group('MONTH(Jobs.date)');
+                    // ->where(['Jobs.date >' => new \DateTime('-360 days')]);
+                break;
+            default:
+                return null;
+                break;
+        }
+        $datasets['datasets'][0]['label'] = ucfirst($type);
+        foreach ($charts_data as $charts) {
+            $datasets['labels'][] = $charts->labels;
+            $datasets['datasets'][0]['data'][] = $charts->sum;
+            $datasets['datasets'][0]['backgroundColor'][] = 'rgba(' . rand(128,255) . ',' . rand(128,255) . ',' . rand(128,255) . ', 0.4)';
+        }
+        $object = (object)$datasets;
+        return $object;
     }
 }

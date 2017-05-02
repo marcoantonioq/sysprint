@@ -46,7 +46,6 @@ class PagesController extends AppController
      */
     public function display(...$path)
     {
-        $this->viewBuilder()->setLayout('Template.admin');
         $count = count($path);
         if (!$count) {
             return $this->redirect('/');

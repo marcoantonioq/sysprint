@@ -32,17 +32,6 @@ class UsersController extends AppController
         return $this->redirect($this->Auth->logout());
     }
 
-    
-    public function perfil(){
-        if (!$this->Auth->user('id')) {
-            return $this->redirect(['action' => 'index']);
-        }
-        $user = $this->Users->get($this->Auth->user('id'));
-        $this->set('user', $user);
-        $this->set('_serialize', ['user']);
-        $this->render("Users/view");
-    }
-    
     public function index(){
         $users = $this->paginate($this->Users);
         $this->set(compact('users'));
@@ -51,6 +40,13 @@ class UsersController extends AppController
 
     public function view($id = null)
     {
+        if ( empty($id) ) {
+            if (!$this->Auth->user('id')) {
+                return $this->redirect(['action' => 'index']);
+            }
+            $id = $this->Auth->user('id');
+
+        }
         $user = $this->Users->get($id);
         $this->set('user', $user);
         $this->set('_serialize', ['user']);

@@ -15,7 +15,8 @@
         <li><a href="#QUsers" data-toggle="pill">Acesso</a></li>
     </ul>
     <div class="tab-content">
-        <div id="QImpressoras" class="tab-pane fade in active">            
+        <div id="QImpressoras" class="tab-pane fade in active">
+            <div class="table-responsive">
             <table class='table'>
                 <tbody>
                     <tr>
@@ -50,6 +51,7 @@
                     <?php endforeach; ?>
                   </tbody>
             </table>
+            </div>
         </div>
         
         <!-- Quotas -->

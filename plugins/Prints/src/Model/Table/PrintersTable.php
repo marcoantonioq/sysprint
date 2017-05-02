@@ -23,6 +23,7 @@ class PrintersTable extends Table
         parent::initialize($config);
 
         $this->setTable('printers');
+
         $this->setDisplayField('name');
         $this->setPrimaryKey('id');
 
@@ -123,14 +124,14 @@ class PrintersTable extends Table
         );
 
         $user = $this->Users->get($data['user_id'])->get('username');
-        $printer = $data['printers'];
+        $printer = $data['printer_id'];
+        // pr($data); exit;
 
         foreach ($data['file'] as $file) {
-            // $path = $this->convertTo($file);
             $path = $file['tmp_name'];
 
             if ( array_search($file['type'], $_imagetypes) === false ){
-                echo "O tipo de arquivo \"{$file['name']}\" enviado é inválido! (Arquivos válidos: PDF, txt, png, jpge)"; exit;                
+                echo "O tipo de arquivo \"{$file['name']}\" enviado é inválido! (Arquivos válidos: PDF, txt, png, jpge)"; exit;
             }
 
             $data['params'] = array_filter($data['params'], function($value) { return $value !== ''; });
@@ -143,10 +144,11 @@ class PrintersTable extends Table
                 'media' => ' -o media=',
                 'orientation' => ' -o orientation-requested=',
             ];
-            foreach ($data['params'] as $key => $value)
+            foreach ($data['params'] as $key => $value){
                 $params .= "{$keyparams[$key]}{$value} ";
+            }
             $cmd = $this->testComand("lp")." -U {$user} -d {$printer} $params $path"; // pr($comand); exit;
-            $this->execComand($cmd);
+            $this->sendSpool($cmd);
             exec("rm -rf $path {$file['tmp_name']}");
         }
         return true;

@@ -4,7 +4,7 @@ use Cake\Routing\Router;
 use Cake\Routing\Route\DashedRoute;
 
 Router::scope('/', function (RouteBuilder $routes) {
-    $routes->connect('/auth-user', ['plugin'=>'AuthUser', 'controller' => 'Users', 'action' => 'perfil']);
+    $routes->connect('/auth-user', ['plugin'=>'AuthUser', 'controller' => 'Users', 'action' => 'view']);
     $routes->fallbacks(DashedRoute::class);
 });
 

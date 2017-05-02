@@ -38,10 +38,17 @@ body {
   height: 100%;
 }
 
-.input {
+.input, a.btn {
   margin: 10px 0px 10px 0;
 }
 
 .tab-content {
   padding: 10px 0 10px;
+}
+
+/* debug config index*/
+.alert.url-rewriting {
+    background-color: #F0F0F0;
+    border-color: #cccccc;
+    display: none;
 }

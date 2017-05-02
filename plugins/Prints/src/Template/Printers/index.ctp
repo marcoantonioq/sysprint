@@ -14,7 +14,8 @@
                             [
                                 'plugin'=>'prints', 
                                 'controller'=>'printers', 
-                                'action' => 'spool'
+                                'action' => 'spool',
+                                $printer['name']
                             ],
                             [
                                 'escape'=>false

@@ -45,7 +45,6 @@ class AppController extends Controller
         $this->loadComponent('RequestHandler');
         $this->loadComponent('Flash');
 
-        // $this->loadComponent('AuthUser.Auth');        
         $this->loadComponent(
             'Auth', [
                 'loginRedirect' => '/',
@@ -67,12 +66,6 @@ class AppController extends Controller
         $this->viewBuilder()->setLayout('Template.admin');
     }
 
-    /**
-     * Before render callback.
-     *
-     * @param \Cake\Event\Event $event The beforeRender event.
-     * @return \Cake\Network\Response|null|void
-     */
     public function beforeRender(Event $event)
     {
         if (!array_key_exists('_serialize', $this->viewVars) &&

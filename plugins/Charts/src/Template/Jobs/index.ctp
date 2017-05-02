@@ -13,17 +13,15 @@
                 "onclick"=>"window.print()",
                 'escape'=>false
             ])." ";
-        echo $this->Html->link('<i class="fa fa-users" aria-hidden="true"></i> Usuários',
-            ['controller' => 'jobs', 'action' => 'users'],
-            [
-                'class'=> 'btn btn-default',
-                'escape'=>false
-            ])." ";
-
             ?>
 </div>
+
+<?=$this->element('Charts.menu_charts'); ?>
+
+
 <div class="row-fluid">
     <h3><?= __('Jobs') ?></h3>
+    <div class="table-responsive">
     <table cellpadding="0" cellspacing="0" class="table">
         <thead>
             <tr>
@@ -58,14 +56,27 @@
                 <td><?= h($job->created) ?></td>
                 <td><?= h($job->modified) ?></td>
                 <td class="actions">
-                    <?= $this->Html->link(__('View'), ['action' => 'view', $job->id]) ?>
-                    <?= $this->Html->link(__('Edit'), ['action' => 'edit', $job->id]) ?>
-                    <?= $this->Form->postLink(__('Delete'), ['action' => 'delete', $job->id], ['confirm' => __('Are you sure you want to delete # {0}?', $job->id)]) ?>
+                    <?= $this->Html->link('<i class="fa fa-search" aria-hidden="true"></i>', 
+                        ['action' => 'view', $job->id],
+                        ['escape'=>false]
+                    ) ?>
+                    <?= $this->Html->link('<i class="fa fa-pencil" aria-hidden="true"></i>', 
+                        ['action' => 'edit', $job->id],
+                        ['escape'=>false]
+                    ) ?>
+                    <?= $this->Form->postLink('<i class="fa fa-trash" aria-hidden="true"></i>', 
+                        ['action' => 'delete', $job->id], 
+                        [
+                            'escape'=>false,
+                            'confirm' => __('Apagar definitivo # {0}?', $job->id),
+                        ]
+                    ) ?>
                 </td>
             </tr>
             <?php endforeach; ?>
         </tbody>
     </table>
+    </div>
 
     <?= $this->element('Template.pagination'); ?>   
 

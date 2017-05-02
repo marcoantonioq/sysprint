@@ -22,10 +22,13 @@ class JobsController extends AppController
             'contain' => ['Users', 'Printers']
         ];
         $jobs = $this->paginate($this->Jobs);
-
-        $charts_anual = $this->Jobs->getChartsAnual();
-        $this->set(compact('jobs','charts_anual'));
+        $this->set(compact('jobs'));
         $this->set('_serialize', ['jobs']);
+    }
+
+    public function type($type){
+        $charts = $this->Jobs->getCharts($type);
+        $this->set(compact('charts'));
     }
 
     /**

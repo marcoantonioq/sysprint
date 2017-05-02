@@ -76,9 +76,8 @@
 }
 
 .sidebar-nav li {
-    text-indent: 20px;
+    text-indent: 5px;
     line-height: 40px;
-    
 }
 
 .sidebar-nav li a {
@@ -129,6 +128,8 @@
 
     #wrapper.toggled #sidebar-wrapper {
         width: 250px;
+        box-shadow: 0 5px 10px rgba(0,0,0,.4), 0 1px 10px rgba(0,0,0,.4);
+    
     }
 
     #page-content-wrapper {

@@ -13,7 +13,11 @@ class SettingsController extends AppController
 
     public function index()
     {
+        
+    }
 
+    public function edit()
+    {
         if ( !$this->Settings->exists(0) ) {
             $setting = $this->Settings->newEntity();
         } else {
@@ -58,5 +62,10 @@ class SettingsController extends AppController
             $this->Flash->error(__('Não foi apagar guardar a definição.'), ['plugin' => 'Template']);
         }
         return $this->redirect(['action' => 'index']);
+    }
+
+    public function debug()
+    {
+        
     }
 }

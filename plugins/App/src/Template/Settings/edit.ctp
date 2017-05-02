@@ -4,12 +4,33 @@
   */
 
 ?>
-
-<div class="row-fluid">
     <?= $this->Form->create($setting, [
         'class' => 'form-horizontal'
     ]) ?>
     
+
+<div class="row-fluid">
+        <?php
+        echo $this->Html->link('<i class="fa fa-chevron-left" aria-hidden="true"></i> Cancelar',
+            ['plugin'=>'app', 'controller' => 'settings', 'action' => 'index'],
+            [
+                'class'=> 'btn btn-default',
+                'escape'=>false
+            ])." ";
+            ?>
+            <?= $this->Form->button('<i class="fa fa-floppy-o" aria-hidden="true"></i> Salvar',['class'=>'btn btn-success']) ?>
+            <?= $this->Form->postLink(
+            '<i class="fa fa-trash" aria-hidden="true"></i> Apagar',
+            ['action' => 'delete', $setting->id],
+            [
+                'confirm' => __('Apagar Configurações?', $setting->id),
+                'class'=>'btn btn-danger',
+                'escape'=>false
+            ]
+        )?>
+</div>
+
+<div class="row">
     <ul class="nav nav-tabs">
         <li class="active"><a data-toggle="tab" href="#Geral">Geral</a></li>
         <li><a data-toggle="tab" href="#AD">AD</a></li>
@@ -98,16 +119,6 @@
             </div>
         </div>    
     </div>
-    <h5>Salvar todas as configurações</h5>
-        <?= $this->Form->button('Salvar Configurações',['class'=>'btn btn-success']) ?>
-        <?= $this->Form->postLink(
-            __('Delete'),
-            ['action' => 'delete', $setting->id],
-            [
-                'confirm' => __('Apagar Configurações?', $setting->id),
-                'class'=>'btn btn-danger',
-            ]
-        )?>
         
     <?= $this->Form->end() ?>
 </div>

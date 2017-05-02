@@ -49,22 +49,43 @@
 </head>
 
 <body>
-
     <div id="wrapper" class="toggled">
-
         <!-- Sidebar -->
         <div id="sidebar-wrapper">
             <ul class="sidebar-nav hidden-print">
                 <li class="sidebar-brand">
-                    <?= $this->Html->link('Home', '/') ?>
+                    <?= $this->Html->link('<i class="fa fa-desktop" aria-hidden="true"></i> Home', '/',['escape'=>false]) ?>
                 </li>
-                <li> <?= $this->Html->link('Perfil', ['plugin'=>'AuthUser', 'controller'=>'users', 'action' => 'perfil']) ?></li>
-                <li> <?= $this->Html->link('Impressoras', ['plugin'=>'prints', 'controller'=>'printers', 'action' => 'index']) ?></li>
-                <li> <?= $this->Html->link('Charts', ['plugin'=>'Charts', 'controller'=>'jobs', 'action' => 'index']) ?></li>
-                <li><?= $this->Html->link('Configurações', ['plugin'=>'App', 'controller'=>'settings', 'action' => 'index']) ?> <ul>
-                  <li> <?= $this->Html->link('Quotas', ['plugin'=>'Prints', 'controller'=>'printers', 'action' => 'quota']) ?></li>
-                </ul></li>
-                <li> <a href="#">Ajuda</a></li>
+                <li> 
+                  <?= $this->Html->link('<i class="fa fa-users" aria-hidden="true"></i> Perfil', 
+                      ['plugin'=>'AuthUser', 'controller'=>'users', 'action' => 'view'],
+                      ['escape'=>false]
+                      ) ?>
+                </li>
+                <li> 
+                  <?= $this->Html->link('<i class="fa fa-print" aria-hidden="true"></i> Impressoras', 
+                      ['plugin'=>'prints', 'controller'=>'printers', 'action' => 'index'],
+                      ['escape'=>false]
+                      ) ?>
+                </li>
+                <li> 
+                  <?= $this->Html->link('<i class="fa fa-bar-chart" aria-hidden="true"></i> Charts', 
+                      ['plugin'=>'Charts', 'controller'=>'jobs', 'action' => 'index'],
+                      ['escape'=>false]
+                      ) ?>
+                </li>
+                <li>
+                  <?= $this->Html->link('<i class="fa fa-cogs" aria-hidden="true"></i> Configurações', 
+                      ['plugin'=>'App', 'controller'=>'settings', 'action' => 'index'],
+                      ['escape'=>false]
+                      ) ?> 
+                </li>
+                <li> 
+                  <?= $this->Html->link('<i class="fa fa-question-circle-o" aria-hidden="true"></i> Ajuda', 
+                      ['plugin'=>'App', 'controller'=>'settings', 'action' => 'debug'],
+                      ['escape'=>false]
+                      ) ?>
+                </li>
             </ul>
         </div>
         <!-- /#sidebar-wrapper -->

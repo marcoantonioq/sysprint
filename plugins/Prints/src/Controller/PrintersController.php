@@ -67,20 +67,16 @@ class PrintersController extends AppController
      *
      * @return \Cake\Network\Response|null Redirects on successful add, renders view otherwise.
      */
-    public function spool()
-    {
+    public function spool($print_default=null) {
         $spool = new SpoolForm();
         if ($this->request->is('post')) {
             $this->Printers->sendPrint($this->request->data);
-            pr($this->request->data); exit;
-            $thiss->Flash->success(__('Impressão enviada'));
+            $this->Flash->success('Impressão enviada.', ['plugin' => 'Template']);
             // $this->Printers->sendEmail($user['User']['email'], $message);
-
             return $this->redirect(['action' => 'index']);
         }
         $users = $this->Printers->Users->find('list');
-        $printers = $this->Printers->getLpPrinters();
-        // pr($users); exit;
-        $this->set(compact('spool','printers', 'users'));
+        $printers = $this->Printers->getLpListPrinters( );
+        $this->set(compact('spool','printers', 'users','print_default'));
     }
 }
