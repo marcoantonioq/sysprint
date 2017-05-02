@@ -14,6 +14,12 @@
                 'escape'=>false
             ])." ";
 
+        echo $this->Html->link('<i class="fa fa-lock"></i> Logout',
+            ['controller' => 'users', 'action' => 'logout'],
+            [
+                'class'=> 'btn btn-default',
+                'escape'=>false
+            ])." ";
             ?>
 </div>
 
