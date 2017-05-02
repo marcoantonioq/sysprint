@@ -43,8 +43,12 @@ class SettingsController extends AppController
 
     public function update(){
         if ($this->request->is(['patch', 'post', 'put'])) {
-            echo "git checkout master; git branch new-branch-to-save-current-commits; git fetch --all; git reset --hard origin/master";
-            $version = exec("cd ".ROOT."; git fetch; git pull --tag; git reset --hard HEAD; git reset --hard origin/master; chmod 777 -R ./");
+            // link remote
+            exec("git remote add origin http://github.com/marcoantonioq/sysprint3");
+
+
+            $version = exec("cd ".ROOT."; git clean -f -d; git reset --hard HEAD; git pull origin master; git pull --tag; ; chmod 777 -R ./");
+            
             $this->Flash->success("Atualizado com sucesso!", ['plugin' => 'Template']);
         }
 

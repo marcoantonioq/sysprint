@@ -1,10 +1,6 @@
 # CakePHP 3
 
 /config/app.php
-
-/vendor/*
-/config/app.php
-
 /tmp/*
 /tmp/cache/models/*
 !/tmp/cache/models/empty
