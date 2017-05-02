@@ -3,7 +3,6 @@
 sftp-config.json
 
 /config/app.php
-/tmp/*
 /tmp/cache/models/*
 !/tmp/cache/models/empty
 /tmp/cache/persistent/*
