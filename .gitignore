@@ -1,6 +1,7 @@
 # CakePHP 3
 
 sftp-config.json
+/plugins/App/config/sysprint.php
 
 /config/app.php
 /tmp/cache/models/*

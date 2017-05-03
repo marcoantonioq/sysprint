@@ -1,0 +1,23 @@
+<?php
+return [
+    'button' => '<button{{attrs}}>{{text}}</button>',
+    'checkbox' => '<input type="checkbox" name="{{name}}" value="{{value}}"{{attrs}}>',
+    'checkboxFormGroup' => '{{label}}',
+    'dateWidget' => '{{day}}{{month}}{{year}}{{hour}}{{minute}}{{second}}{{meridian}}',
+    'error' => '<div class="error-message">{{content}}</div>',
+    'errorList' => '<ul>{{content}}</ul>',
+    'errorItem' => '<li>{{text}}</li>',
+    'file' => '<input  type="file" name="{{name}}"{{attrs}}>',
+    'formStart' => '<form{{attrs}}>',
+    'formEnd' => '</form>',
+    'formGroup' => '{{label}}{{input}}',
+    'input' => '<input class="form-control" type="{{type}}" name="{{name}}"{{attrs}}/>',
+    'inputSubmit' => '<input type="{{type}}"{{attrs}}/>',
+    'label' => '<label{{attrs}}>{{text}}</label>',
+    'option' => '<option value="{{value}}"{{attrs}}>{{text}}</option>',
+    'optgroup' => '<optgroup label="{{label}}"{{attrs}}>{{content}}</optgroup>',
+    'select' => '<select class="form-control" name="{{name}}"{{attrs}}>{{content}}</select>',
+    'selectMultiple' => '<select name="{{name}}[]" multiple="multiple"{{attrs}}>{{content}}</select>',
+    'radio' => '<input type="radio" name="{{name}}" value="{{value}}"{{attrs}}>',
+    'textarea' => '<textarea class="form-control" name="{{name}}"{{attrs}}>{{value}}</textarea>',
+];

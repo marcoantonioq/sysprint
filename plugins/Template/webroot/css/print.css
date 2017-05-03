@@ -52,3 +52,46 @@ body {
     border-color: #cccccc;
     display: none;
 }
+
+/* settings index */
+.feature-box {
+    margin-bottom: 5px;
+    padding: 10px;
+    text-align: center;
+    min-width: 140px;
+}
+.feature-icon i {
+    font-size: 50px;
+}
+
+
+/** Forms **/
+form .required {
+  font-weight: bold;
+}
+form .required label:after {
+  color: #e32;
+  content: '*';
+  display:inline;
+}
+
+form .datetime .span12, form .date .span12, form .time .span12{
+  width: 32.8%;}
+
+/* Form errors */
+form .error {
+  background: #FFDACC;
+  border-radius: 4px;
+  font-weight: normal;
+}
+form .error-message {
+  border: none;
+  background: none;
+  margin: 0;
+}
+form .error,
+form .error-message {
+  color: #9E2424;
+  text-shadow: none;
+  /* padding: 10px; */
+}

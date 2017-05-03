@@ -143,4 +143,20 @@ class SettingsTable extends Table
 
         return $validator;
     }
+
+    public function saveConfig($configs, $configReplace) 
+    {
+        $config_all = array_replace_recursive(
+            $configs, 
+            $configReplace
+        );
+        $config['SYSPRINT'] = $config_all['SYSPRINT'];
+        $config['debug'] = $config_all['debug'];
+        file_put_contents(
+            APP_PATH."/config/sysprint.php", 
+            "<?php return ".var_export($config, TRUE).";"
+        );
+        return true;
+
+    }
 }

@@ -79,6 +79,7 @@ try {
     exit($e->getMessage() . "\n");
 }
 
+
 /*
  * Load an environment local configuration file.
  * You can use a file like app_local.php to provide local overrides to your
@@ -95,46 +96,18 @@ if (Configure::read('debug')) {
     Configure::write('Cache._cake_core_.duration', '+2 minutes');
 }
 
-/*
- * Set server timezone to UTC. You can change it to another timezone of your
- * choice but using UTC makes time calculations / conversions easier.
- */
 date_default_timezone_set('UTC');
-
-/*
- * Configure the mbstring extension to use the correct encoding.
- */
 mb_internal_encoding(Configure::read('App.encoding'));
-
-/*
- * Set the default locale. This controls how dates, number and currency is
- * formatted and sets the default language to use for translations.
- */
 ini_set('intl.default_locale', Configure::read('App.defaultLocale'));
-
-/*
- * Register application error and exception handlers.
- */
 $isCli = PHP_SAPI === 'cli';
 if ($isCli) {
     (new ConsoleErrorHandler(Configure::read('Error')))->register();
 } else {
     (new ErrorHandler(Configure::read('Error')))->register();
-}
-
-/*
- * Include the CLI bootstrap overrides.
- */
+} 
 if ($isCli) {
     require __DIR__ . '/bootstrap_cli.php';
 }
-
-/*
- * Set the full base URL.
- * This URL is used as the base of all absolute links.
- *
- * If you define fullBaseUrl in your config file you can remove this.
- */
 if (!Configure::read('App.fullBaseUrl')) {
     $s = null;
     if (env('HTTPS')) {
@@ -162,9 +135,6 @@ Security::salt(Configure::consume('Security.salt'));
  */
 //Security::engine(new \Cake\Utility\Crypto\Mcrypt());
 
-/*
- * Setup detectors for mobile and tablet.
- */
 Request::addDetector('mobile', function ($request) {
     $detector = new \Detection\MobileDetect();
 
@@ -176,14 +146,6 @@ Request::addDetector('tablet', function ($request) {
     return $detector->isTablet();
 });
 
-/*
- * Enable immutable time objects in the ORM.
- *
- * You can enable default locale format parsing by adding calls
- * to `useLocaleParser()`. This enables the automatic conversion of
- * locale specific date formats. For details see
- * @link http://book.cakephp.org/3.0/en/core-libraries/internationalization-and-localization.html#parsing-localized-datetime-data
- */
 Type::build('time')
     ->useImmutable();
 Type::build('date')
@@ -203,28 +165,15 @@ Type::build('timestamp')
 //Inflector::rules('uninflected', ['dontinflectme']);
 //Inflector::rules('transliteration', ['/å/' => 'aa']);
 
-/*
- * Plugins need to be loaded manually, you can either load them one by one or all of them in a single call
- * Uncomment one of the lines below, as you need. make sure you read the documentation on Plugin to use more
- * advanced ways of loading plugins
- *
- * Plugin::loadAll(); // Loads all plugins at once
- * Plugin::load('Migrations'); //Loads a single plugin named Migrations
- *
- */
 
 Plugin::loadAll([
-    'App' => ['routes' => true, 'autoload' => true],
+    'App' => ['routes' => true, 'autoload' => true,'bootstrap' => true],
     'AuthUser' => ['routes' => true, 'autoload' => true],
     'Template' => ['routes' => true, 'autoload' => true],
     'Prints' => ['routes' => true, 'autoload' => true],
     'Charts' => ['routes' => true, 'autoload' => true]
 ]);
 
-/*
- * Only try to load DebugKit in development mode
- * Debug Kit should not be installed on a production system
- */
 if (Configure::read('debug')) {
     Plugin::load('DebugKit', ['bootstrap' => true]);
 }

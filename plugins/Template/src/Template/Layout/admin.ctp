@@ -114,7 +114,7 @@
     });
 
     $(document).ready(function () {
-      // alert(window.screen.availHeight);
+      // resolução cell toglled menu lateral
        if ((window.screen.availHeight < 750) && (window.screen.availWidth < 750)) {
           $("#wrapper").toggleClass("toggled");
        }

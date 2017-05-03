@@ -2,6 +2,7 @@
 namespace App\Controller;
 
 use App\Controller\AppController;
+use Cake\Core\Configure;
 
 /**
  * Settings Controller
@@ -18,27 +19,18 @@ class SettingsController extends AppController
 
     public function edit()
     {
-        if ( !$this->Settings->exists(0) ) {
-            $setting = $this->Settings->newEntity();
-        } else {
-            $setting = $this->Settings->get(0, ['contain' => []]);
-        }
+        if ($this->request->is(['patch', 'post', 'put'])) {
 
-        if ($this->request->is(['patch', 'post', 'put'])) {            
-            $setting = $this->Settings->patchEntity($setting, $this->request->getData());
-            if ($this->Settings->save($setting)) {
-                $this->Flash->success("Salvo com sucesso", ['plugin' => 'Template']);
-            } else {
-                $this->Flash->error('Não foi possível guardar a definição.', ['plugin' => 'Template']);                
-            }
-        }        
-        $version = $this->Settings->checkUpdate();
-        if($version){
-            $this->Flash->error("Atualize para a última versão($version).", ['plugin' => 'Template']);
+            $this->Settings->saveConfig(
+                Configure::read(), 
+                $this->request->getData()
+            );
+            $this->Flash->success("Novas configurações definidas!", 
+                ['plugin' => 'Template']
+            );
+            return $this->redirect(['action' => 'index']);
         }
-        $this->set(compact('setting','version'));
-        $this->set('_serialize', ['setting']);
-        $this->render("Settings/edit");
+        $this->request->data = Configure::read();
     }
 
 
@@ -50,7 +42,19 @@ class SettingsController extends AppController
                 $this->Flash->error("Não foi possivel atualizar!", ['plugin' => 'Template']);
             }
         }
-        return $this->redirect(['action' => 'index']);
+        $version = $this->Settings->checkUpdate();
+        if($version){
+            $this->Flash->error("Atualize para a última versão($version).", ['plugin' => 'Template']);
+        }
+        $this->set(compact('version'));
+    }
+
+    public function modules(){
+        if ($this->request->is(['patch', 'post', 'put'])) {
+            
+        }
+        $modules = Configure::read("SYSPRINT.MODULES");
+        $this->set(compact('modules'));
     }
 
     public function delete($id = null)

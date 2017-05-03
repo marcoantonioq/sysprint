@@ -3,16 +3,26 @@
   * @var \App\View\AppView $this
   */
 ?>
-<nav class="large-3 medium-4 columns" id="actions-sidebar">
-    <ul class="side-nav">
-        <li class="heading"><?= __('Actions') ?></li>
-        <li><?= $this->Html->link(__('List Users'), ['action' => 'index']) ?></li>
-    </ul>
-</nav>
-<div class="users form large-9 medium-8 columns content">
+
     <?= $this->Form->create($user) ?>
+
+
+<div class="row-fluid">
+        <?php
+            echo $this->Html->link('<i class="fa fa-chevron-left" aria-hidden="true"></i> Cancelar',
+            ['action' => 'index'],
+            [
+                'class'=> 'btn btn-default',
+                'escape'=>false
+            ])." ";
+            echo $this->Form->button('<i class="fa fa-floppy-o" aria-hidden="true"></i> Salvar',['class'=>'btn btn-success']) 
+        ?>
+</div>
+
+
+<div class="row-fluid">
     <fieldset>
-        <legend><?= __('Add User') ?></legend>
+        <legend>Novo usuário</legend>
         <?php
             echo $this->Form->control('name');
             echo $this->Form->control('username');

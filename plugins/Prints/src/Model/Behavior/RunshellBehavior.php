@@ -105,6 +105,5 @@ class RunshellBehavior extends Behavior
     public function sendSpool($cmd=''){
         exec($cmd, $output, $return);
         if($return) { echo "</p>Comando <b>'$cmd'<b> não encontrado!!!<p>"; pr($output); exit; }
-        
     }
 }

@@ -11,25 +11,19 @@ use Cake\Event\Event;
  */
 class UsersController extends AppController
 {
-    public function beforeFilter(Event $event)
-    {
-        parent::beforeFilter($event);
-        $this->Auth->allow(['add', 'logout']);
-    }
 
     public function login(){
         if ($this->request->is('post')) {
             $user = $this->Auth->identify();
-            if ($user) {
-                $this->Auth->setUser($user);
-                return $this->redirect($this->Auth->redirectUrl());
+            if ($this->AuthUsers->login()) {
+                return $this->redirect($this->AuthUsers->redirectUrl());
             }
             $this->Flash->error(__('Usuário ou senha ínvalido, tente novamente'), ['plugin' => 'Template']);
         }
     }
 
     public function logout(){
-        return $this->redirect($this->Auth->logout());
+        return $this->redirect($this->AuthUsers->logout());
     }
 
     public function index(){
@@ -40,12 +34,11 @@ class UsersController extends AppController
 
     public function view($id = null)
     {
-        if ( empty($id) ) {
-            if (!$this->Auth->user('id')) {
+        if (empty($id) ) {
+            if (!isset($this->Auth) || !$this->Auth->user('id')) {
                 return $this->redirect(['action' => 'index']);
             }
             $id = $this->Auth->user('id');
-
         }
         $user = $this->Users->get($id);
         $this->set('user', $user);
@@ -58,11 +51,10 @@ class UsersController extends AppController
         if ($this->request->is('post')) {
             $user = $this->Users->patchEntity($user, $this->request->getData());
             if ($this->Users->save($user)) {
-                $this->Flash->success(__('The user has been saved.'), ['plugin' => 'Template']);
-
+                $this->Flash->success('Usuário salvo com sucesso', ['plugin' => 'Template']);
                 return $this->redirect(['action' => 'index']);
             }
-            $this->Flash->error(__('The user could not be saved. Please, try again.'), ['plugin' => 'Template']);
+            $this->Flash->error('O usuário não pôde ser salvo. Por favor, tente novamente.', ['plugin' => 'Template']);
         }
         $this->set(compact('user'));
         $this->set('_serialize', ['user']);
@@ -79,7 +71,7 @@ class UsersController extends AppController
 
                 return $this->redirect(['action' => 'index']);
             }
-            $this->Flash->error(__('The user could not be saved. Please, try again.'), ['plugin' => 'Template']);
+            $this->Flash->error('O usuário não pôde ser salvo. Por favor, tente novamente.', ['plugin' => 'Template']);
         }
         $this->set(compact('user'));
         $this->set('_serialize', ['user']);

@@ -48,7 +48,7 @@ class PrintersController extends AppController
             $printer[] = $this->Printers->get($value['id'], [
                 'contain' => ['Users']
             ]);
-        }  
+        }
 
         if ($this->request->is(['patch', 'post', 'put'])) {
             foreach ($this->request->getData() as $key => $value) {
@@ -56,6 +56,8 @@ class PrintersController extends AppController
                 $save = $this->Printers->patchEntity($printer[$key], $value);
                 $this->Printers->save($save);
             }
+            $this->Flash->success('Quota salvo com sucesso', ['plugin' => 'Template']);
+            return $this->redirect(['plugin'=>'App', 'controller'=>'settings', 'action' => 'index']);
         }
         $users = $this->Printers->Users->find('list', ['limit' => 200]);
         $this->set(compact('printer', 'users'));

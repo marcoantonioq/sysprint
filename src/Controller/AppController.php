@@ -41,33 +41,18 @@ class AppController extends Controller
     public function initialize()
     {
         parent::initialize();
+        $this->viewBuilder()->setLayout('Template.admin');
 
         $this->loadComponent('RequestHandler');
         $this->loadComponent('Flash');
 
-        $this->loadComponent(
-            'Auth', [
-                'loginRedirect' => '/',
-                'logoutRedirect' => '/',
-                'loginAction' => ['plugin' => 'AuthUser','controller' => 'Users','action' => 'login'],
-                'flash' => ['element' => 'Template.error'],
-                'authenticate' => [
-                    'Form' => [
-                        'fields' => ['username' => 'username','password' => 'password'],
-                        'scope'  => ['Users.status' => '1'],
-                    ]
-                ]
-            ]
-        );
-
+        $this->loadComponent('AuthUser.AuthUsers');
         // $this->loadComponent('Security');
         // $this->loadComponent('Csrf');
-
-        $this->viewBuilder()->setLayout('Template.admin');
     }
 
     public function beforeRender(Event $event)
-    {
+    {        
         if (!array_key_exists('_serialize', $this->viewVars) &&
             in_array($this->response->type(), ['application/json', 'application/xml'])
         ) {

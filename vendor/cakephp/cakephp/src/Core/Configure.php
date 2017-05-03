@@ -12,6 +12,7 @@
  * @since         1.0.0
  * @license       http://www.opensource.org/licenses/mit-license.php MIT License
  */
+
 namespace Cake\Core;
 
 use Cake\Cache\Cache;

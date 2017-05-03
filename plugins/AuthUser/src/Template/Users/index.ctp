@@ -5,13 +5,6 @@
 ?>
 <div class="row-fluid">
         <?php
-        echo $this->Html->link('<i class="fa fa-users" aria-hidden="true"></i> Todos usuários',
-            ['controller' => 'users', 'action' => 'index'],
-            [
-                'class'=> 'btn btn-default',
-                'escape'=>false
-            ])." ";
-
         echo $this->Html->link('<i class="fa fa-plus" aria-hidden="true"></i> Novo usuário',
             ['controller' => 'users', 'action' => 'add'],
             [
@@ -19,6 +12,12 @@
                 'escape'=>false
             ])." ";
 
+            echo $this->Html->link('<i class="fa fa-lock"></i> Logout',
+            ['controller' => 'users', 'action' => 'logout'],
+            [
+                'class'=> 'btn btn-default',
+                'escape'=>false
+            ])." ";
             ?>
 </div>
 

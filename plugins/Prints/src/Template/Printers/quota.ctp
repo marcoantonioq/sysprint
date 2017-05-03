@@ -4,11 +4,24 @@
   */
 
 ?>
-
-<div class="row-fluid">
     <?= $this->Form->create($printer, [
         'class' => 'form-horizontal'
     ]) ?>
+
+
+<div class="row-fluid">
+        <?php
+        echo $this->Html->link('<i class="fa fa-chevron-left" aria-hidden="true"></i> Voltar',
+            ['plugin'=>'app', 'controller' => 'settings', 'action' => 'index'],
+            [
+                'class'=> 'btn btn-default',
+                'escape'=>false
+            ])." ";
+            ?>
+            <?= $this->Form->button('<i class="fa fa-floppy-o" aria-hidden="true"></i> Salvar',['class'=>'btn btn-success']) ?>
+</div>
+
+<div class="row-fluid">
     
     <ul class="nav nav-tabs">
         <li class="active"><a href="#QImpressoras" data-toggle="pill">Quotas</a></li>
@@ -77,7 +90,6 @@
     
     </div>
     <h5>Salvar todas as configurações</h5>
-    <?= $this->Form->button('Salvar Configurações',['class'=>'btn btn-success']) ?>
     <?= $this->Form->end() ?>
 </div>
 <script type="text/javascript">
