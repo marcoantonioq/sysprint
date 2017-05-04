@@ -25,9 +25,10 @@ class AD {
      * @return Singleton A Instância única.
      */
     public static function getConnect() {
-
+        if (!extension_loaded('ldap')) {
+            echo 'Você deve ativar a extensão ldap em php.ini para usar o SYSPrint:AD.'; exit;
+        }
         if (null === self::$instance) {
-            echo "new instance";
             self::$instance = new static();
         }
         $config = Configure::read('SYSPRINT.MODULES.AD.Config');

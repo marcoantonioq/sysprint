@@ -31,7 +31,7 @@ class AuthUsersComponent extends Component
         ){
             return true;
         }
-        return false;        
+        return false;
     }
 
     public function enableAD()
@@ -51,11 +51,8 @@ class AuthUsersComponent extends Component
 
     public function login(){
 
-        // foreach ([1,2,3,4,5] as $value) {
-        //     pr(AD::getConnect());
-        // } 
+        // pr(AD::getConnect());
         // exit;
-
         if( $this->enable() ){
             $user = $this->getController()->Auth->identify();
             if ($user) {

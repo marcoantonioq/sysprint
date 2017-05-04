@@ -42,7 +42,7 @@ use Cake\Error\Debugger;
     }
 
     header {
-        background-color: #C3232D;
+        background-color: #36992f;
         color: #ffffff;
         padding: 16px 10px;
         border-bottom: 3px solid #626262;
