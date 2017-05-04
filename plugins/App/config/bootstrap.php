@@ -1,6 +1,4 @@
 <?php
-define('APP_PATH', ROOT . DS . 'plugins' . DS . 'App');
-
 
 // use Cake\Cache\Cache;
 // use Cake\Console\ConsoleErrorHandler;
@@ -17,7 +15,7 @@ use Cake\Core\Configure;
 // use Cake\Utility\Inflector;
 // use Cake\Utility\Security;
 try {
-    Configure::load('App.sysprint', 'default');
+    Configure::load('sysprint', 'default');
 } catch (\Exception $e) {
     exit($e->getMessage() . "\n");
 }

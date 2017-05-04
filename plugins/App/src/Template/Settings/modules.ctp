@@ -23,10 +23,11 @@
                 </tr>
             </thead>
             <tbody>
+                <?php $name_module = ['AD'=>'Active directory','AUTH'=>'Autenticação'] ?>
                 <?php foreach ($modules as $name => $module): ?>
                 <tr>
                     <td>
-                        <?= $name?>                    
+                        <?= $name_module[$name]?>                    
                     </td>
                     <td>
                         <?= ($module['enable'])?"Ativado":"Desativado"; ?>                    

@@ -152,8 +152,9 @@ class SettingsTable extends Table
         );
         $config['SYSPRINT'] = $config_all['SYSPRINT'];
         $config['debug'] = $config_all['debug'];
+        pr(ROOT."/config/sysprint.php"); exit;
         file_put_contents(
-            APP_PATH."/config/sysprint.php", 
+            ROOT."/config/sysprint.php", 
             "<?php return ".var_export($config, TRUE).";"
         );
         return true;
