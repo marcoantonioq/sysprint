@@ -51,10 +51,10 @@ class AuthUsersComponent extends Component
 
     public function login(){
 
-        foreach ([1,2,3,4,5] as $value) {
-            pr(AD::getConnect());
-        } 
-        exit;
+        // foreach ([1,2,3,4,5] as $value) {
+        //     pr(AD::getConnect());
+        // } 
+        // exit;
 
         if( $this->enable() ){
             $user = $this->getController()->Auth->identify();

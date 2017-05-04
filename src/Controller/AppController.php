@@ -53,6 +53,7 @@ class AppController extends Controller
 
     public function beforeRender(Event $event)
     {        
+        
         if (!array_key_exists('_serialize', $this->viewVars) &&
             in_array($this->response->type(), ['application/json', 'application/xml'])
         ) {

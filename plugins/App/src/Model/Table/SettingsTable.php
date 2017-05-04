@@ -53,94 +53,6 @@ class SettingsTable extends Table
         $validator
             ->integer('id')
             ->allowEmpty('id', 'create');
-
-        $validator
-            ->boolean('app_status')
-            ->allowEmpty('app_status');
-
-        $validator
-            ->boolean('app_debug')
-            ->allowEmpty('app_debug');
-
-        $validator
-            ->allowEmpty('app_title');
-
-        $validator
-            ->allowEmpty('app_locale');
-
-        $validator
-            ->allowEmpty('app_dateformtar');
-
-        $validator
-            ->boolean('app_https')
-            ->allowEmpty('app_https');
-
-        $validator
-            ->boolean('app_auth')
-            ->allowEmpty('app_auth');
-
-        $validator
-            ->boolean('ad_conect')
-            ->allowEmpty('ad_conect');
-
-        $validator
-            ->allowEmpty('ad_host');
-
-        $validator
-            ->integer('ad_port')
-            ->allowEmpty('ad_port');
-
-        $validator
-            ->allowEmpty('ad_dn');
-
-        $validator
-            ->allowEmpty('ad_user');
-
-        $validator
-            ->allowEmpty('ad_pass');
-
-        $validator
-            ->allowEmpty('ad_suffix');
-
-        $validator
-            ->allowEmpty('ad_attr');
-
-        $validator
-            ->allowEmpty('ad_filter');
-
-        $validator
-            ->boolean('mail_conect')
-            ->allowEmpty('mail_conect');
-
-        $validator
-            ->allowEmpty('mail_transport');
-
-        $validator
-            ->allowEmpty('mail_title');
-
-        $validator
-            ->allowEmpty('mail_from');
-
-        $validator
-            ->allowEmpty('mail_host');
-
-        $validator
-            ->integer('mail_port')
-            ->allowEmpty('mail_port');
-
-        $validator
-            ->integer('mail_timeout')
-            ->allowEmpty('mail_timeout');
-
-        $validator
-            ->allowEmpty('mail_username');
-
-        $validator
-            ->allowEmpty('mail_password');
-
-        $validator
-            ->allowEmpty('mail_charset');
-
         return $validator;
     }
 
@@ -152,7 +64,6 @@ class SettingsTable extends Table
         );
         $config['SYSPRINT'] = $config_all['SYSPRINT'];
         $config['debug'] = $config_all['debug'];
-        pr(ROOT."/config/sysprint.php"); exit;
         file_put_contents(
             ROOT."/config/sysprint.php", 
             "<?php return ".var_export($config, TRUE).";"
