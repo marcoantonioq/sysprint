@@ -12,6 +12,7 @@
  * @since         3.0.0
  * @license       http://www.opensource.org/licenses/mit-license.php MIT License
  */
+use Cake\Error\Debugger;
 ?>
 <!DOCTYPE html>
 <html>
@@ -41,7 +42,7 @@
     }
 
     header {
-        background-color: #C3232D;
+        background-color: #36992f;
         color: #ffffff;
         padding: 16px 10px;
         border-bottom: 3px solid #626262;

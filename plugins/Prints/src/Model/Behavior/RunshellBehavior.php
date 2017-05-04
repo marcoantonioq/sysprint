@@ -38,35 +38,26 @@ class RunshellBehavior extends Behavior
         ];        
     }
 
-    // testa comandos (return path completo do comando)
-    public function testComand($exec){
-        $cmd = "command -v $exec";
-        exec($cmd,$result, $return);
-        if($return) {
-            echo "</p>Comando não encontrado!!! </p>Instalar: $exec</p> apt-get install $exec"; exit;
-        }
-        return $result[0];
-    }
-
-    private function execRun($cmd, $params=null){
-        // verifica se é root
-        exec("sudo ".ROOT."/plugins/Prints/src/Shell/run user", $output);
+    private function execRun($cmd, $params=null, $mensage=""){
+        // verifica se é root        
+        exec("sudo ".ROOT."/plugins/Prints/src/Shell/run getUser", $output, $result);
         if(@$output[0] != "root") {
-            echo "Add line: nano /etc/sudoers</br>";
-            echo "(USER_SERVER:{$output[0]}) ALL= NOPASSWD:".ROOT."/plugins/Prints/src/Shell/run user";
+            echo "Add line: # nano /etc/sudoers</br>";
+            echo exec('whoami')." ALL= NOPASSWD:".ROOT."/plugins/Prints/src/Shell/run";
             exit;
         } 
-        // Executa comando
         $output=null; $return=false;
-        exec("sudo ".ROOT."/plugins/Prints/src/Shell/run $cmd $params", $output, $return);
-        if($return) { echo "</p>Comando <br>'$cmd'<b> não encontrado!!!"; exit; }
+        exec("sudo ".ROOT."/plugins/Prints/src/Shell/run $cmd", $output, $return);
+        if($return) { echo "</p>Comando <br>'$cmd'<b> não encontrado!!!<p>$mensage"; exit; }
         return $output;
     }
    
     public function getLpPrinters($type=null) {
         $printers = TableRegistry::get('Printers');
-        $values = $this->execRun('getLpPrinters');
-
+        $values = $this->execRun('getPrinters', null, "Servidor cups não encontrado :(");
+        if (empty($values)) {
+            return null;
+        }
         foreach ($values as $key => $value) {
             $pvalue = @$printers->findByName($value)->first();
             $p = $printers->newEntity();
@@ -82,6 +73,7 @@ class RunshellBehavior extends Behavior
 
     public function getLpListPrinters($printer = null ) {
         $printers = $this->getLpPrinters();
+        pr($printers); exit;
         foreach ($printers as $value) {
             $list[$value['name']] = $value['name'];
         }
@@ -91,13 +83,13 @@ class RunshellBehavior extends Behavior
         return $list;
     }
 
-    public function setPrintSettings($settings)
+    public function setPrintSettingsQuota($settings)
     {
-        if(isset($settings['id'])){
-            $settings = [$settings];
-        }
+        $this->execRun("setLpadmin","Quota");
+        return true;
+        
         foreach ($settings as $key => $value) {
-            $return = $this->execRun("lpadmin","  -p '${value['name']}' -o job-quota-period=${value['quota_period']} -o job-page-limit=${value['page_limite']} -o job-k-limit=${value['k_limit']}");
+            $return = $this->execRun("setLpadmin","Quota","-p '${value['name']}' -o job-quota-period=${value['quota_period']} -o job-page-limit=${value['page_limite']} -o job-k-limit=${value['k_limit']}");
 
         }
     }

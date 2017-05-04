@@ -88,7 +88,7 @@ class UpdateBehavior extends Behavior
     public function gitUpdate( )
     {
         if($this->checkUpdate()) {
-            exec("cd {$this->_updateFile}; git clean -f -d ; git reset --hard HEAD ; git pull origin master && git pull origin master --tag;",$version, $result);
+            exec("cd {$this->_updateFile}; git clean -f -d ; git reset --hard HEAD ; git pull && git pull --tag;",$version, $result);
             if($result){
                 echo "Atualizado com sucesso";
                 return true;

@@ -52,7 +52,7 @@ class PrintersController extends AppController
 
         if ($this->request->is(['patch', 'post', 'put'])) {
             foreach ($this->request->getData() as $key => $value) {
-                $this->Printers->setPrintSettings($value);
+                $this->Printers->setPrintSettingsQuota($value);
                 $save = $this->Printers->patchEntity($printer[$key], $value);
                 $this->Printers->save($save);
             }

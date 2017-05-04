@@ -1,15 +1,27 @@
 #!/bin/bash
 
-case "$1" in
-	'user')
-		whoami
-		;;
-	'printer')
-		php /opt/lampp/htdocs/cakephp/sysprint-3.6/bin/cake.php prints.printer
-		;;
-	'lpadmin')
-		$($@)
-		;;
-	'getLpPrinters')
-		sudo cat /etc/cups/printers.conf | grep "<Printer \|<DefaultPrinter " | sed 's/<Printer \|<DefaultPrinter //' | sed 's/>//'
-esac
+function_exists() {
+    declare -f -F $1 > /dev/null
+    return $?
+}
+
+function getUser(){
+	whoami
+}
+
+function getPrinter(){
+	php ../../../../bin/cake.php prints.printer quota;
+}
+
+function getPrinters(){
+	[ -e "/etc/cups/printers.conf" ] &&
+	sudo cat /etc/cups/printers.conf | grep "<Printer \|<DefaultPrinter " | sed 's/<Printer \|<DefaultPrinter //' | sed 's/>//'
+
+}
+
+function setLpadmin(){
+	cd $(dirname ${BASH_SOURCE[0]});
+	php ../../../../bin/cake.php prints.printer quota;
+}
+
+function_exists $1 && $1 $* ||  return false;
