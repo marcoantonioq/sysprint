@@ -15,7 +15,7 @@ class UpdateBehavior extends Behavior
     private $_log = '';
     private $_installDir = '';
     private $_branch = '';
-    protected $_updateUrl = 'http://github.com/marcoantonioq/sysprint3';
+    protected $_updateUrl = 'http://github.com/marcoantonioq/sysprint.git';
     protected $_updateFile = 'file://';
     /**
      * Create new instance
@@ -69,21 +69,23 @@ class UpdateBehavior extends Behavior
    
     public function checkUpdate()
     {
-        $this->setCurrentVersion();
-        $this->setLatestVersion();        
-        if(strcmp($this->_currentVersion, $this->_latestVersion)){
+        if(
+            version_compare(
+                $this->setCurrentVersion(), 
+                $this->setLatestVersion()
+            ) < 0)
+        {
             // pr("Atualize para a nova versão: {$this->_latestVersion}");
             return $this->_latestVersion;
         } else {
-            // pr("Esta atualizado: {$this->_currentVersion}");
             return false;
         }
     }
 
-    public function update( )
+    public function gitUpdate( )
     {
         if($this->checkUpdate()) {
-            exec("cd {$this->_updateFile}; git clean -f -d ; git reset --hard HEAD ; git pull origin master ; git pull origin master --tag;",$version, $result);
+            exec("cd {$this->_updateFile}; git clean -f -d ; git reset --hard HEAD ; git pull origin master && git pull origin master --tag;",$version, $result);
             if($result){
                 echo "Atualizado com sucesso";
                 return true;

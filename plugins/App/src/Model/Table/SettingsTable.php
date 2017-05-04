@@ -33,7 +33,7 @@ class SettingsTable extends Table
         $this->addBehavior('Prints.Runshell');
         $this->addBehavior('App.Update',[
             '_updateFile'=>ROOT,
-            '_updateUrl'=>'http://github.com/marcoantonioq/sysprint3', 
+            '_updateUrl'=>'https://github.com/marcoantonioq/sysprint.git', 
         ]);
 
         $this->setTable('settings');

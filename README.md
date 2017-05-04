@@ -17,6 +17,13 @@ Suporta uma variedade de mecanismos de armazenamento de banco de dados
 - Microsoft SQL Server (2008 ou superior)
 - SQLite 3
 
+# Configuração
+
+- Alterando o limite de memória 
+	1. Acesse arquivo PHP.ini;
+	2. Abra o arquivo baixado utilizando um editor de textos de sua preferência e procure pela diretiva "memory_limit";
+	Altere a diretiva conforme sua necessidade(recomendado 256M);
+
 # Utilização
 
 ...

@@ -36,7 +36,7 @@ class SettingsController extends AppController
 
     public function update(){
         if ($this->request->is(['patch', 'post', 'put'])) {
-            if($this->update()){
+            if($this->Settings->gitUpdate()){
                 $this->Flash->success("Atualizado com sucesso!", ['plugin' => 'Template']);
             } else {
                 $this->Flash->error("Não foi possivel atualizar!", ['plugin' => 'Template']);

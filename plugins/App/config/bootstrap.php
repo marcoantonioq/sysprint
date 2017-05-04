@@ -19,3 +19,10 @@ try {
 } catch (\Exception $e) {
     exit($e->getMessage() . "\n");
 }
+
+date_default_timezone_set('America/Sao_Paulo');
+ini_set('upload_max_filesize', '1024M');
+ini_set('post_max_size', '1024M');
+ini_set('max_input_time', 300);
+ini_set('max_execution_time', 300);
+
