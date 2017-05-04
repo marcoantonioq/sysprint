@@ -493,7 +493,7 @@ class AuthComponent extends Component
                 'plugin' => null
             ],
             'logoutRedirect' => $this->_config['loginAction'],
-            'authError' => 'Você não está autorizado a acessar esse local'
+            'authError' => __d('cake', 'You are not authorized to access that location.')
         ];
 
         $config = $this->getConfig();

@@ -129,9 +129,10 @@ Type::build('timestamp')
 //Inflector::rules('uninflected', ['dontinflectme']);
 //Inflector::rules('transliteration', ['/å/' => 'aa']);
 
+// Plugin::load('Migrations');
 
 Plugin::loadAll([
-    'App' => ['routes' => true, 'autoload' => true,'bootstrap' => true],
+    'Sys' => ['routes' => true, 'autoload' => true,'bootstrap' => true],
     'AuthUser' => ['routes' => true, 'autoload' => true],
     'Template' => ['routes' => true, 'autoload' => true],
     'Prints' => ['routes' => true, 'autoload' => true],

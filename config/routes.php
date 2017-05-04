@@ -48,7 +48,7 @@ Router::defaultRouteClass(DashedRoute::class);
 //     $routes->connect('/pages/*', ['controller' => 'Pages', 'action' => 'display']);
 //     $routes->fallbacks(DashedRoute::class);
 // });
-Router::scope('/', ['plugin' => 'App'], function (RouteBuilder $routes) {
+Router::scope('/', ['plugin' => 'Sys'], function (RouteBuilder $routes) {
     $routes->connect('/', ['controller' => 'settings', 'action' => 'index']);
     // $routes->connect('/pages/*', ['controller' => 'Pages', 'action' => 'display']);
     $routes->fallbacks(DashedRoute::class);

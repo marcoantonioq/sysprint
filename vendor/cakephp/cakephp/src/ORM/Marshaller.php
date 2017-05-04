@@ -193,7 +193,8 @@ class Marshaller
             if ($value === '' && in_array($key, $primaryKey, true)) {
                 // Skip marshalling '' for pk fields.
                 continue;
-            } elseif (isset($propertyMap[$key])) {
+            }
+            if (isset($propertyMap[$key])) {
                 $properties[$key] = $propertyMap[$key]($value, $entity);
             } else {
                 $properties[$key] = $value;
@@ -355,6 +356,9 @@ class Marshaller
      * @param array $data The data to convert into entities.
      * @param array $options List of options.
      * @return array An array of built entities.
+     * @throws \BadMethodCallException
+     * @throws \InvalidArgumentException
+     * @throws \RuntimeException
      */
     protected function _belongsToMany(Association $assoc, array $data, $options = [])
     {
@@ -378,7 +382,7 @@ class Marshaller
                 if (count($keys) === $primaryCount) {
                     $rowConditions = [];
                     foreach ($keys as $key => $value) {
-                        $rowConditions[][$target->aliasfield($key)] = $value;
+                        $rowConditions[][$target->aliasField($key)] = $value;
                     }
 
                     if ($forceNew && !$target->exists($rowConditions)) {
@@ -539,7 +543,6 @@ class Marshaller
         }
 
         $errors = $this->_validate($data + $keys, $options, $isNew);
-        $schema = $this->_table->getSchema();
         $options['isMerge'] = true;
         $propertyMap = $this->_buildPropertyMap($data, $options);
         $properties = $marshalledAssocs = [];

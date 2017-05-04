@@ -76,13 +76,13 @@
                 </li>
                 <li>
                   <?= $this->Html->link('<i class="fa fa-cogs" aria-hidden="true"></i> Configurações', 
-                      ['plugin'=>'App', 'controller'=>'settings', 'action' => 'index'],
+                      ['plugin'=>'sys', 'controller'=>'settings', 'action' => 'index'],
                       ['escape'=>false]
                       ) ?> 
                 </li>
                 <li> 
                   <?= $this->Html->link('<i class="fa fa-question-circle-o" aria-hidden="true"></i> Ajuda', 
-                      ['plugin'=>'App', 'controller'=>'settings', 'action' => 'debug'],
+                      ['plugin'=>'sys', 'controller'=>'settings', 'action' => 'debug'],
                       ['escape'=>false]
                       ) ?>
                 </li>

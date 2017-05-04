@@ -97,7 +97,7 @@ class Query implements ExpressionInterface, IteratorAggregate
      *
      * @var \Cake\Database\StatementInterface|null
      */
-    protected $_iterator = null;
+    protected $_iterator;
 
     /**
      * The object responsible for generating query placeholders and temporarily store values
@@ -105,14 +105,14 @@ class Query implements ExpressionInterface, IteratorAggregate
      *
      * @var \Cake\Database\ValueBinder|null
      */
-    protected $_valueBinder = null;
+    protected $_valueBinder;
 
     /**
      * Instance of functions builder object used for generating arbitrary SQL functions.
      *
      * @var \Cake\Database\FunctionsBuilder|null
      */
-    protected $_functionsBuilder = null;
+    protected $_functionsBuilder;
 
     /**
      * Boolean for tracking whether or not buffered results
@@ -412,7 +412,7 @@ class Query implements ExpressionInterface, IteratorAggregate
             if (is_array($this->_parts['distinct'])) {
                 $merge = $this->_parts['distinct'];
             }
-            $on = ($overwrite) ? array_values($on) : array_merge($merge, array_values($on));
+            $on = $overwrite ? array_values($on) : array_merge($merge, array_values($on));
         }
 
         $this->_parts['distinct'] = $on;
@@ -918,8 +918,8 @@ class Query implements ExpressionInterface, IteratorAggregate
      *   ->where(['title' => 'Foo'])
      *   ->andWhere(function ($exp, $query) {
      *     return $exp
-     *       ->add(['author_id' => 1])
-     *       ->or_(['author_id' => 2]);
+     *       ->or_(['author_id' => 1])
+     *       ->add(['author_id' => 2]);
      *   });
      * ```
      *
@@ -981,8 +981,8 @@ class Query implements ExpressionInterface, IteratorAggregate
      *   ->where(['title' => 'Foo'])
      *   ->orWhere(function ($exp, $query) {
      *     return $exp
-     *       ->add(['author_id' => 1])
-     *       ->or_(['author_id' => 2]);
+     *       ->or_(['author_id' => 1])
+     *       ->add(['author_id' => 2]);
      *   });
      * ```
      *
@@ -1986,7 +1986,7 @@ class Query implements ExpressionInterface, IteratorAggregate
         } else {
             $expression = $this->newExpr()
                 ->setConjunction($conjunction)
-                ->add([$append, $expression], $types);
+                ->add([$expression, $append], $types);
         }
 
         $this->_parts[$part] = $expression;
@@ -2061,7 +2061,7 @@ class Query implements ExpressionInterface, IteratorAggregate
     public function __debugInfo()
     {
         try {
-            $restore = set_error_handler(function ($errno, $errstr) {
+            set_error_handler(function ($errno, $errstr) {
                 throw new RuntimeException($errstr, $errno);
             }, E_ALL);
             $sql = $this->sql();

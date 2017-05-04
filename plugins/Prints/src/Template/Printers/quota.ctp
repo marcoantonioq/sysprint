@@ -12,7 +12,7 @@
 <div class="row-fluid">
         <?php
         echo $this->Html->link('<i class="fa fa-chevron-left" aria-hidden="true"></i> Voltar',
-            ['plugin'=>'app', 'controller' => 'settings', 'action' => 'index'],
+            ['plugin'=>'sys', 'controller' => 'settings', 'action' => 'index'],
             [
                 'class'=> 'btn btn-default',
                 'escape'=>false

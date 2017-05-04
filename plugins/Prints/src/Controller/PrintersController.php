@@ -57,7 +57,7 @@ class PrintersController extends AppController
                 $this->Printers->save($save);
             }
             $this->Flash->success('Quota salvo com sucesso', ['plugin' => 'Template']);
-            return $this->redirect(['plugin'=>'App', 'controller'=>'settings', 'action' => 'index']);
+            return $this->redirect(['plugin'=>'sys', 'controller'=>'settings', 'action' => 'index']);
         }
         $users = $this->Printers->Users->find('list', ['limit' => 200]);
         $this->set(compact('printer', 'users'));

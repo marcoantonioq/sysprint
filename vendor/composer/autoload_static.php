@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInit02b2781364b77464472ada2c13a6d092
+class ComposerStaticInit0e2ad8c897bdfe713094971791d3e9e4
 {
     public static $files = array (
         '0e6d7bf4a5811bfa5cf40c5ccd6fae6a' => __DIR__ . '/..' . '/symfony/polyfill-mbstring/bootstrap.php',
@@ -26,11 +26,6 @@ class ComposerStaticInit02b2781364b77464472ada2c13a6d092
         array (
             'XdgBaseDir\\' => 11,
         ),
-        'T' => 
-        array (
-            'Template\\Test\\' => 14,
-            'Template\\' => 9,
-        ),
         'S' => 
         array (
             'Symfony\\Polyfill\\Mbstring\\' => 26,
@@ -51,8 +46,6 @@ class ComposerStaticInit02b2781364b77464472ada2c13a6d092
             'Psy\\' => 4,
             'Psr\\Log\\' => 8,
             'Psr\\Http\\Message\\' => 17,
-            'Prints\\Test\\' => 12,
-            'Prints\\' => 7,
             'PhpParser\\' => 10,
             'Phinx\\' => 6,
         ),
@@ -86,7 +79,6 @@ class ComposerStaticInit02b2781364b77464472ada2c13a6d092
         ),
         'A' => 
         array (
-            'AuthUser\\' => 9,
             'Aura\\Intl\\' => 10,
             'App\\Test\\' => 9,
             'App\\' => 4,
@@ -101,14 +93,6 @@ class ComposerStaticInit02b2781364b77464472ada2c13a6d092
         'XdgBaseDir\\' => 
         array (
             0 => __DIR__ . '/..' . '/dnoegel/php-xdg-base-dir/src',
-        ),
-        'Template\\Test\\' => 
-        array (
-            0 => __DIR__ . '/../..' . '/plugins/Template/tests',
-        ),
-        'Template\\' => 
-        array (
-            0 => __DIR__ . '/../..' . '/plugins/Template/src',
         ),
         'Symfony\\Polyfill\\Mbstring\\' => 
         array (
@@ -170,14 +154,6 @@ class ComposerStaticInit02b2781364b77464472ada2c13a6d092
         array (
             0 => __DIR__ . '/..' . '/psr/http-message/src',
         ),
-        'Prints\\Test\\' => 
-        array (
-            0 => __DIR__ . '/../..' . '/plugins/Prints/tests',
-        ),
-        'Prints\\' => 
-        array (
-            0 => __DIR__ . '/../..' . '/plugins/Prints/src',
-        ),
         'PhpParser\\' => 
         array (
             0 => __DIR__ . '/..' . '/nikic/php-parser/lib/PhpParser',
@@ -238,10 +214,6 @@ class ComposerStaticInit02b2781364b77464472ada2c13a6d092
         array (
             0 => __DIR__ . '/..' . '/cakephp/bake/src',
         ),
-        'AuthUser\\' => 
-        array (
-            0 => __DIR__ . '/../..' . '/plugins/AuthUser/src',
-        ),
         'Aura\\Intl\\' => 
         array (
             0 => __DIR__ . '/..' . '/aura/intl/src',
@@ -285,10 +257,10 @@ class ComposerStaticInit02b2781364b77464472ada2c13a6d092
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInit02b2781364b77464472ada2c13a6d092::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInit02b2781364b77464472ada2c13a6d092::$prefixDirsPsr4;
-            $loader->prefixesPsr0 = ComposerStaticInit02b2781364b77464472ada2c13a6d092::$prefixesPsr0;
-            $loader->classMap = ComposerStaticInit02b2781364b77464472ada2c13a6d092::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInit0e2ad8c897bdfe713094971791d3e9e4::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInit0e2ad8c897bdfe713094971791d3e9e4::$prefixDirsPsr4;
+            $loader->prefixesPsr0 = ComposerStaticInit0e2ad8c897bdfe713094971791d3e9e4::$prefixesPsr0;
+            $loader->classMap = ComposerStaticInit0e2ad8c897bdfe713094971791d3e9e4::$classMap;
 
         }, null, ClassLoader::class);
     }

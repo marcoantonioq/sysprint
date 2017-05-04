@@ -1,29 +1,51 @@
-# Servidor de Impressão
-# Introdução
+# CakePHP Application Skeleton
 
-Este trabalho aborda os serviços CUPS com autenticação integrada ao AD, através de um serviço web, para gestão das impressoras da rede em um servidor de impressão centralizado e com relatórios de impressão por impressora e por usuário.
+[![Build Status](https://img.shields.io/travis/cakephp/app/master.svg?style=flat-square)](https://travis-ci.org/cakephp/app)
+[![License](https://img.shields.io/packagist/l/cakephp/app.svg?style=flat-square)](https://packagist.org/packages/cakephp/app)
 
-# Requisitos
+A skeleton for creating applications with [CakePHP](http://cakephp.org) 3.x.
 
-- HTTP Server. Por exemplo: Apache. De preferência com mod_rewrite ativo, mas não é obrigatório.
-- PHP 5.6.0 ou superior.
-- extensão mbstring
-- extensão intl
+The framework source code can be found here: [cakephp/cakephp](https://github.com/cakephp/cakephp).
 
-Suporta uma variedade de mecanismos de armazenamento de banco de dados
+## Installation
 
-- MySQL (5.1.10 ou superior)
-- PostgreSQL
-- Microsoft SQL Server (2008 ou superior)
-- SQLite 3
+1. Download [Composer](http://getcomposer.org/doc/00-intro.md) or update `composer self-update`.
+2. Run `php composer.phar create-project --prefer-dist cakephp/app [app_name]`.
 
-# Configuração
+If Composer is installed globally, run
 
-- Alterando o limite de memória 
-	1. Acesse arquivo PHP.ini;
-	2. Abra o arquivo baixado utilizando um editor de textos de sua preferência e procure pela diretiva "memory_limit";
-	Altere a diretiva conforme sua necessidade(recomendado 256M);
+```bash
+composer create-project --prefer-dist cakephp/app
+```
 
-# Utilização
+In case you want to use a custom app dir name (e.g. `/myapp/`):
 
-...
+```bash
+composer create-project --prefer-dist cakephp/app myapp
+```
+
+You can now either use your machine's webserver to view the default home page, or start
+up the built-in webserver with:
+
+```bash
+bin/cake server -p 8765
+```
+
+Then visit `http://localhost:8765` to see the welcome page.
+
+## Update
+
+Since this skeleton is a starting point for your application and various files
+would have been modified as per your needs, there isn't a way to provide
+automated upgrades, so you have to do any updates manually.
+
+## Configuration
+
+Read and edit `config/app.php` and setup the `'Datasources'` and any other
+configuration relevant for your application.
+
+## Layout
+
+The app skeleton uses a subset of [Foundation](http://foundation.zurb.com/) CSS
+framework by default. You can, however, replace it with any other library or
+custom styles.

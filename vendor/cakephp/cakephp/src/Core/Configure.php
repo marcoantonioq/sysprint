@@ -12,7 +12,6 @@
  * @since         1.0.0
  * @license       http://www.opensource.org/licenses/mit-license.php MIT License
  */
-
 namespace Cake\Core;
 
 use Cake\Cache\Cache;
@@ -56,7 +55,7 @@ class Configure
      *
      * @var bool|null
      */
-    protected static $_hasIniSet = null;
+    protected static $_hasIniSet;
 
     /**
      * Used to store a dynamic variable in Configure.
