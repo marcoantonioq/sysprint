@@ -93,7 +93,7 @@ class UpdateBehavior extends Behavior
                 echo "Atualizado com sucesso";
                 return true;
             } else {
-                echo "<b>Não</b> atualizado com sucesso";
+                echo "<b>Não</b> atualizado com sucesso"; 
                 return false;
             }
 

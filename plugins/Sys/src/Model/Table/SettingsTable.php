@@ -29,8 +29,6 @@ class SettingsTable extends Table
     public function initialize(array $config)
     {
         parent::initialize($config);
-
-        $this->addBehavior('Prints.Runshell');
         $this->addBehavior('Sys.Update',[
             '_updateFile'=>ROOT,
             '_updateUrl'=>'https://github.com/marcoantonioq/sysprint.git', 

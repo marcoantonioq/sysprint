@@ -11,6 +11,7 @@ use Charts\Controller\AppController;
 class JobsController extends AppController
 {
 
+
     /**
      * Index method
      *
@@ -27,6 +28,7 @@ class JobsController extends AppController
     }
 
     public function type($type){
+        $this->Jobs->reloadLogs();
         $charts = $this->Jobs->getCharts($type);
         $this->set(compact('charts'));
     }
@@ -43,7 +45,6 @@ class JobsController extends AppController
         $job = $this->Jobs->get($id, [
             'contain' => ['Users', 'Printers']
         ]);
-
         $this->set('job', $job);
         $this->set('_serialize', ['job']);
     }

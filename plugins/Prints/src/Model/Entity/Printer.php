@@ -3,27 +3,8 @@ namespace Prints\Model\Entity;
 
 use Cake\ORM\Entity;
 
-/**
- * Printer Entity
- *
- * @property int $id
- * @property string $name
- * @property int $month_count
- * @property string $local
- * @property string $descrition
- * @property bool $allow
- * @property bool $status
- * @property string $ip
- * @property \Cake\I18n\Time $created
- * @property \Cake\I18n\Time $updated
- * @property int $quota_period
- * @property int $page_limite
- * @property int $k_limit
- * @property \Cake\I18n\Time $updated_quota
- */
 class Printer extends Entity
 {
-
     /**
      * Fields that can be mass assigned using newEntity() or patchEntity().
      *
@@ -38,6 +19,8 @@ class Printer extends Entity
         'id' => false
     ];
 
-    
+    public function sendSpool() {
+        
+    }
 
 }

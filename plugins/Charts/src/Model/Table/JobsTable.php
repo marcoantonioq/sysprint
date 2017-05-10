@@ -5,6 +5,10 @@ use Cake\ORM\Query;
 use Cake\ORM\RulesChecker;
 use Cake\ORM\Table;
 use Cake\Validation\Validator;
+use Cake\ORM\TableRegistry;
+use Charts\Model\Entity\Chart;
+use Sys\Model\Entity\Cups;
+
 
 /**
  * Jobs Model
@@ -95,22 +99,34 @@ class JobsTable extends Table
         return $rules;
     }
 
+    public function reloadLogs(){
+        $Cups = new Cups;
+        foreach ($Cups->readLogsToJobs() as $job) {
+            ####error falta arruma função para buscar id por nome
+            $job['printer_id'] = $this->Printers->
+                findByName($job['printer_id'])->
+                first()['id'];
+
+            $job['user_id'] = $this->Users->
+                findByName($job['user_id'])->
+                first()['id'];
+
+            $job = $this->patchEntity($this->newEntity(), $job);
+            $this->save($job);
+        }
+
+        // $printers = TableRegistry::get('Printers');
+        // pr($printers->getLog());
+        // pr('beforeFind'); exit;
+    }
+
 
 
     public function getCharts($type)
     {
+        $Chart = new Chart();
         $query = $this->find();
-        $datasets['datasets'][] = [
-            "backgroundColor" => [
-                'rgba(54, 162, 235, 0.4)',
-                'rgba(255, 206, 86, 0.4)',
-                'rgba(255, 99, 132, 0.4)',
-                'rgba(75, 192, 192, 0.4)',
-                'rgba(153, 102, 255, 0.4)',
-                'rgba(255, 159, 64, 0.4)',
-            ],
-            "data" =>  null
-        ];
+
         switch ($type) {
             case 'impressoras':
                 $charts_data = $query->find("all",[])
@@ -148,13 +164,20 @@ class JobsTable extends Table
                 return null;
                 break;
         }
-        $datasets['datasets'][0]['label'] = ucfirst($type);
+
         foreach ($charts_data as $charts) {
-            $datasets['labels'][] = $charts->labels;
-            $datasets['datasets'][0]['data'][] = $charts->sum;
-            $datasets['datasets'][0]['backgroundColor'][] = 'rgba(' . rand(128,255) . ',' . rand(128,255) . ',' . rand(128,255) . ', 0.4)';
+            $labels[] = $charts->labels;
+            $sum[] = $charts->sum;
+            $color[] = 'rgba(' . rand(128,255) . ',' . rand(128,255) . ',' . rand(128,255) . ', 0.4)';
         }
-        $object = (object)$datasets;
-        return $object;
+        
+        $Chart->setLabels($labels);
+        $Chart->setDatasets([
+            'label' => ucfirst($type),
+            'data' => $sum,
+            'backgroundColor' => $color
+        ]);
+
+        return $Chart->getCharts();
     }
 }

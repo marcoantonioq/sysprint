@@ -1,6 +1,8 @@
 <?php
 namespace Prints\Controller;
 
+use Cake\Event\Event;   
+
 use Prints\Controller\AppController;
 use Prints\Form\SpoolForm;
 /**
@@ -11,6 +13,11 @@ use Prints\Form\SpoolForm;
 class PrintersController extends AppController
 {
 
+    public function beforeFilter(Event $event)
+    {
+        // parent::beforeFilter();
+        $this->Auth->allow("index");
+    }
     /**
      * Index method
      *
@@ -19,7 +26,7 @@ class PrintersController extends AppController
     public function index()
     {
         // pr($this->Auth->user('id'));
-        $printers = $this->Printers->getLpPrinters();
+        $printers = $this->Printers->getPrinters();
         $this->set(compact('printers'));
         $this->set('_serialize', ['printers']);
     }
@@ -43,7 +50,7 @@ class PrintersController extends AppController
 
     public function quota()
     {    
-        $printsLp = $this->Printers->getLpPrinters();
+        $printsLp = $this->Printers->getPrinters();
         foreach ($printsLp as $value) {
             $printer[] = $this->Printers->get($value['id'], [
                 'contain' => ['Users']
@@ -52,7 +59,7 @@ class PrintersController extends AppController
 
         if ($this->request->is(['patch', 'post', 'put'])) {
             foreach ($this->request->getData() as $key => $value) {
-                $this->Printers->setPrintSettingsQuota($value);
+                $this->Printers->setQuota($value);
                 $save = $this->Printers->patchEntity($printer[$key], $value);
                 $this->Printers->save($save);
             }
@@ -78,7 +85,7 @@ class PrintersController extends AppController
             return $this->redirect(['action' => 'index']);
         }
         $users = $this->Printers->Users->find('list');
-        $printers = $this->Printers->getLpListPrinters( );
+        $printers = $this->Printers->listPrinters( );
         $this->set(compact('spool','printers', 'users','print_default'));
     }
 }

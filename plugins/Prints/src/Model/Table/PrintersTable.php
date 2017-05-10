@@ -6,6 +6,8 @@ use Cake\ORM\RulesChecker;
 use Cake\ORM\Table;
 use Cake\Validation\Validator;
 
+use Sys\Model\Entity\Cups;
+
 
 class PrintersTable extends Table
 {
@@ -28,7 +30,6 @@ class PrintersTable extends Table
         $this->setPrimaryKey('id');
 
         $this->addBehavior('Timestamp');
-        $this->addBehavior('Prints.Runshell');
 
         $this->hasMany('Jobs', [
             'foreignKey' => 'printer_id',
@@ -86,6 +87,47 @@ class PrintersTable extends Table
         return $validator;
     }
 
+    public function getPrinters(){
+        $Cups = new Cups();
+        $printers = [];
+        foreach ($Cups->getPrinters() as $name) {
+            $printer = $this->patchEntity(
+                $this->findByName($name)->first(),
+                ['name'=>$name]
+            );
+            $this->save($printer);
+            $return[] = $printer->toArray();
+        }
+        return $return;        
+    }
+
+    public function listPrinters() {
+        foreach ($this->getPrinters() as $printer) {
+            // pr($printer['name']); exit;
+            $return[$printer['name']] = $printer['name'];
+        }
+        return $return;        
+    }
+
+    // buscar id por nome
+    public function getIDByName(){
+        return "getIDByName"; exit;
+        $Entity = $this->newEntity();
+        $p = $this->Printers->findByName($printer_name)->first();
+        if(!empty($p['id'])) {
+            return $p['id'];
+        }
+        $Entity->name = $p['name'];
+        $this->save($Entity);
+        return $this->getIDByName($printer_name);
+    }
+
+    public function setQuota($settings)
+    {
+        Cups::setQuota($settings); 
+    }
+
+
     /**
      * Returns a rules checker object that will be used for validating
      * application integrity.
@@ -99,7 +141,6 @@ class PrintersTable extends Table
 
         return $rules;
     }
-
 
     public function sendPrint($data){
         $_imagetypes = array(
@@ -148,10 +189,9 @@ class PrintersTable extends Table
                 $params .= "{$keyparams[$key]}{$value} ";
             }
             $cmd = $this->testComand("lp")." -U {$user} -d {$printer} $params $path"; // pr($comand); exit;
-            $this->sendSpool($cmd);
+            exec($cmd, $output, $return);
             exec("rm -rf $path {$file['tmp_name']}");
         }
         return true;
     }
-
 }

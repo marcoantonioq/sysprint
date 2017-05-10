@@ -4,21 +4,21 @@
   */
 ?>
 <div class="row-fluid">
-        <?php
-        echo $this->Html->link('<i class="fa fa-plus" aria-hidden="true"></i> Novo usuário',
-            ['controller' => 'users', 'action' => 'add'],
-            [
-                'class'=> 'btn btn-default',
-                'escape'=>false
-            ])." ";
+    <?php
+    echo $this->Html->link('<i class="fa fa-plus" aria-hidden="true"></i> Novo usuário',
+        ['controller' => 'users', 'action' => 'add'],
+        [
+            'class'=> 'btn btn-default',
+            'escape'=>false
+        ])." ";
 
-            echo $this->Html->link('<i class="fa fa-lock"></i> Logout',
-            ['controller' => 'users', 'action' => 'logout'],
-            [
-                'class'=> 'btn btn-default',
-                'escape'=>false
-            ])." ";
-            ?>
+        echo $this->Html->link('<i class="fa fa-lock"></i> Logout',
+        ['controller' => 'users', 'action' => 'logout'],
+        [
+            'class'=> 'btn btn-default',
+            'escape'=>false
+        ])." ";
+        ?>
 </div>
 
 <div class="users index large-9 medium-8 columns content">

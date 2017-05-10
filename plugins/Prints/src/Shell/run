@@ -14,9 +14,16 @@ function getPrinter(){
 }
 
 function getPrinters(){
-	[ -e "/etc/cups/printers.conf" ] &&
-	sudo cat /etc/cups/printers.conf | grep "<Printer \|<DefaultPrinter " | sed 's/<Printer \|<DefaultPrinter //' | sed 's/>//'
+	[ -e $2 ] &&
+	sudo cat $2 | grep "<Printer \|<DefaultPrinter " | sed 's/<Printer \|<DefaultPrinter //' | sed 's/>//'
+}
 
+function getUser(){
+	whoami
+}
+
+function readLogs(){
+	sudo cat $2;
 }
 
 function setLpadmin(){

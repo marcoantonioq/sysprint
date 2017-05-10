@@ -14,7 +14,7 @@
     array (
       'AUTH' => 
       array (
-        'enable' => '0',
+        'enable' => '1',
         'Config' => 
         array (
           'loginRedirect' => '/',

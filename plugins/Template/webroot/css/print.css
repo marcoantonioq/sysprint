@@ -46,6 +46,10 @@ body {
   padding: 10px 0 10px;
 }
 
+.list-printers {
+  min-height: 200px;
+}
+
 /* debug config index*/
 .alert.url-rewriting {
     background-color: #F0F0F0;
