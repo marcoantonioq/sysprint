@@ -89,16 +89,17 @@ class PrintersTable extends Table
 
     public function getPrinters(){
         $Cups = new Cups();
-        $printers = [];
+        $return = [];
         foreach ($Cups->getPrinters() as $name) {
-            $printer = $this->patchEntity(
-                $this->findByName($name)->first(),
-                ['name'=>$name]
-            );
-            $this->save($printer);
-            $return[] = $printer->toArray();
+            $data = $this->newEntity();
+            $data->id = $this->findByName($name)->first()['id'];
+            $data->name = $name;
+            $data->status = '';
+            $this->save($data);
+            $return[] = $data->toArray();
         }
-        return $return;        
+        // pr($return); exit;
+        return $return;
     }
 
     public function listPrinters() {
@@ -107,19 +108,6 @@ class PrintersTable extends Table
             $return[$printer['name']] = $printer['name'];
         }
         return $return;        
-    }
-
-    // buscar id por nome
-    public function getIDByName(){
-        return "getIDByName"; exit;
-        $Entity = $this->newEntity();
-        $p = $this->Printers->findByName($printer_name)->first();
-        if(!empty($p['id'])) {
-            return $p['id'];
-        }
-        $Entity->name = $p['name'];
-        $this->save($Entity);
-        return $this->getIDByName($printer_name);
     }
 
     public function setQuota($settings)

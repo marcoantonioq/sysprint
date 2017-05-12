@@ -113,6 +113,11 @@
         $("#wrapper").toggleClass("toggled");
     });
 
+    $(".refresh").click(function(e) {
+        e.preventDefault();
+        $(this).addClass("fa-spin");
+    });
+
     $(document).ready(function () {
       // resolução cell toglled menu lateral
        if ((window.screen.availHeight < 750) && (window.screen.availWidth < 750)) {

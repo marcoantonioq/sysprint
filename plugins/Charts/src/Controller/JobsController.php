@@ -27,8 +27,14 @@ class JobsController extends AppController
         $this->set('_serialize', ['jobs']);
     }
 
-    public function type($type){
+    public function backGroundUpdates()
+    {
+        $this->render = false;
         $this->Jobs->reloadLogs();
+        return $this->redirect(['action' => 'index']);
+    }
+
+    public function type($type){
         $charts = $this->Jobs->getCharts($type);
         $this->set(compact('charts'));
     }

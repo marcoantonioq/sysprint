@@ -29,24 +29,12 @@ class Cups extends Entity
     	$jobs = null;
     	foreach ($this->readLogs() as $key => $job_json) {
     		$job = json_decode($job_json, true);
-    		// pr($job);
-
-    		$time = str_replace(array("[", "]"), "",$job['time']);
-	        $time = preg_replace("/:/"," ",$time,1);
-	        $time = preg_replace("/\//","-",$time);
-	        $time = date("Y-m-d H:m:s", strtotime($time));
-	        
-    		$jobs[] = @[
-	          'id'=>$job['job'],
-	          'printer_id' => $job['print'],
-	          'user_id' => $job['user'],
-	          'date' => $time,
-	          'pages' => $job['pages'],
-	          'copies' => $job['copies'],
-	          'host' => "{$job['job-originating-host-name']}",
-	          'file' => "{$job['job-name']}",
-	          'params' => "{$job['media']} - {$job['media']}"
-	        ];
+            $time = str_replace(array("[", "]"), "",$job['time']);
+            $time = preg_replace("/:/"," ",$time,1);
+            $time = preg_replace("/\//","-",$time);
+            $time = date("Y-m-d H:m:s", strtotime($time));
+            $job['time'] = $time;	        
+    		$jobs[] = $job;
     	}
     	return $jobs;
     }

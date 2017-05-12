@@ -16,7 +16,7 @@ class PrintersController extends AppController
     public function beforeFilter(Event $event)
     {
         // parent::beforeFilter();
-        $this->Auth->allow("index");
+        // $this->Auth->allow("index");
     }
     /**
      * Index method

@@ -23,7 +23,7 @@ function getUser(){
 }
 
 function readLogs(){
-	sudo cat $2;
+	sudo cat $2 | sed '/^$/d' ;
 }
 
 function setLpadmin(){

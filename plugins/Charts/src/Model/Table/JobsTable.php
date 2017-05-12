@@ -97,27 +97,34 @@ class JobsTable extends Table
         $rules->add($rules->existsIn(['user_id'], 'Users'));
         $rules->add($rules->existsIn(['printer_id'], 'Printers'));
         return $rules;
-    }
+    } 
 
     public function reloadLogs(){
         $Cups = new Cups;
         foreach ($Cups->readLogsToJobs() as $job) {
-            ####error falta arruma função para buscar id por nome
-            $job['printer_id'] = $this->Printers->
-                findByName($job['printer_id'])->
-                first()['id'];
 
-            $job['user_id'] = $this->Users->
-                findByName($job['user_id'])->
-                first()['id'];
+            $User = $this->Users->newEntity();
+            $User->id = $this->Users->findByName($job['user'])->first()['id'];
+            $User->name = $job['user'];
+            $this->Users->save($User);
 
-            $job = $this->patchEntity($this->newEntity(), $job);
-            $this->save($job);
+            $Printer = $this->Printers->newEntity();
+            $Printer->id = $this->Printers->findByName($job['print'])->first()['id'];
+            $Printer->name = $job['print'];
+            $this->Printers->save($Printer);
+
+            $data = $this->newEntity();
+            $data->id = $job['job'];
+            $data->user_id = $User->id;
+            $data->printer_id = $Printer->id;
+            $data->date = $job['time'];
+            $data->pages = $job['pages'];
+            $data->copies = $job['copies'];
+            $data->host = "{$job['job-originating-host-name']}";
+            $data->file = "{$job['job-name']}";
+            $data->params = "{$job['media']} - {$job['media']}";
+            $this->save( $data );
         }
-
-        // $printers = TableRegistry::get('Printers');
-        // pr($printers->getLog());
-        // pr('beforeFind'); exit;
     }
 
 

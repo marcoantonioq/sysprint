@@ -13,6 +13,12 @@
                 "onclick"=>"window.print()",
                 'escape'=>false
             ])." ";
+        echo $this->Html->link('<i class="refresh fa fa-refresh" aria-hidden="true"></i> Atualizar relatório',
+            ['action' => 'backGroundUpdates'],
+            [
+                'class'=> 'btn btn-default',
+                'escape'=>false
+            ])." ";
             ?>
 </div>
 

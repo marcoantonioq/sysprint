@@ -4,9 +4,7 @@
   */
 
 ?>
-    <?= $this->Form->create($printer, [
-        'class' => 'form-horizontal'
-    ]) ?>
+
 
 
 <div class="row-fluid">
@@ -18,6 +16,14 @@
                 'escape'=>false
             ])." ";
             ?>
+
+    <?php 
+    if (!empty($printer))
+        echo $this->Form->create($printer, [
+            'class' => 'form-horizontal'
+        ]); 
+    ?>
+
             <?= $this->Form->button('<i class="fa fa-floppy-o" aria-hidden="true"></i> Salvar',['class'=>'btn btn-success']) ?>
 </div>
 
@@ -46,7 +52,8 @@
                         <td><b>Págias</b></td>
                         <td><b>Tamanho</b></td>
                     </tr>
-                    <?php 
+                    <?php
+                        if (!empty($printer))
                         foreach ($printer as $key => $lp): 
                             // pr($lp['name']);
                         echo $this->Form->hidden("$key.id",['value'=>$lp['id']]);
@@ -73,7 +80,10 @@
             
             <div class="printers form large-9 medium-8 columns content">
                 <fieldset>
-                    <?php foreach ($printer as $key => $lp): ?>
+                    <?php 
+                        if (!empty($printer))
+                        foreach ($printer as $key => $lp): 
+                    ?>
                         <hr>
                         <h5 class="text-center text-uppercase"><?=$lp['name'] ?></h5>
                     <?php
@@ -89,7 +99,6 @@
         </div>
     
     </div>
-    <h5>Salvar todas as configurações</h5>
     <?= $this->Form->end() ?>
 </div>
 <script type="text/javascript">

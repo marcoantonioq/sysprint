@@ -1,5 +1,5 @@
 <?php
-namespace Prints\Shell;
+namespace Sys\Shell;
 
 use Cake\Console\Shell;
 

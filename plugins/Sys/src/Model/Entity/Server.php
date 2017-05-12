@@ -5,7 +5,6 @@ use Cake\ORM\Entity;
 
 class Server extends Entity
 {
-
     public static function shell($cmd, $prams)
     {
     	exec("sudo ".ROOT."/plugins/Prints/src/Shell/run getUser", $output, $result);
@@ -18,6 +17,11 @@ class Server extends Entity
         exec("sudo ".ROOT."/plugins/Prints/src/Shell/run $cmd $prams", $output, $return);
         if($return) { echo "</p>Comando <br>'$cmd'<b> não encontrado!!!<p>$mensage"; exit; }
         return $output;
+    }
+
+
+    public function setConfigDefaults()
+    {
         
     }
 
