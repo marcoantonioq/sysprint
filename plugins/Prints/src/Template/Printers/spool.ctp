@@ -15,13 +15,13 @@
         <li><a data-toggle="tab" href="#Options">+Opções</a></li>
     </ul>
     <div class="tab-content">
-        <div id="Imprimir" class="tab-pane fade in active">
-            <legend><?php echo __('Imprimir'); ?></legend>
-
+        <div id="Imprimir">
             <?php
             echo $this->Form->control('user_id', array(
+                'type'=>'hide',
                 'label'=>false,
                 'empty'=>'Selecione usuário...',
+                'default' => $this->request->session()->read('Auth.User.id'),
                 'class'=>'form-control',
             ));
 
@@ -29,6 +29,7 @@
                 'label'=>false,
                 'type'=>'file',
                 'multiple'=>true,
+                'class'=>'form-control',
             ));
 
             echo $this->Form->control('printer_id', [

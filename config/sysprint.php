@@ -19,6 +19,7 @@
         array (
           'loginRedirect' => '/',
           'logoutRedirect' => '/',
+          'authError' => 'Você não está autorizado a acessar esse local!',
           'loginAction' => 
           array (
             'plugin' => 'AuthUser',
@@ -38,27 +39,23 @@
                 'username' => 'username',
                 'password' => 'password',
               ),
-              'scope' => 
-              array (
-                'Users.status' => 1,
-              ),
             ),
           ),
         ),
       ),
       'AD' => 
       array (
-        'enable' => '0',
+        'enable' => '1',
         'Config' => 
         array (
-          'ldap_host' => '192.168.1.1',
+          'ldap_host' => '10.11.0.10',
           'ldap_port' => '389',
-          'base_dn' => 'OU=SYSPrint,DC=sys,DC=br',
-          'ldap_user' => 'user_ad',
-          'ldap_pass' => 'password_ad',
-          'suffix' => '@sysprint.br',
+          'base_dn' => 'OU=IFG,DC=ifg,DC=br',
+          'ldap_user' => 'goiservice',
+          'ldap_pass' => 'Brasil05',
+          'suffix' => '@ifg.br',
           'attr' => 'name,displayname,mail,mobile,homephone,telephonenumber,streetaddress,postalcode,physicaldeliveryofficename,l,group,thumbnailphoto,memberof',
-          'filter' => '',
+          'filter' => '&(objectClass=user)(!(extensionattribute2=*Aluno*))',
         ),
       ),
     ),

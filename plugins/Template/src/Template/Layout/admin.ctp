@@ -48,38 +48,46 @@
 <?= $this->fetch('script') ?>
 </head>
 
+
+
 <body>
-    <div id="wrapper" class="toggled">
+    <div id="wrapper" class="">
         <!-- Sidebar -->
         <div id="sidebar-wrapper">
             <ul class="sidebar-nav hidden-print">
                 <li class="sidebar-brand">
                     <?= $this->Html->link('<i class="fa fa-desktop" aria-hidden="true"></i> Home', '/',['escape'=>false]) ?>
                 </li>
+                <?php if( strcmp( $this->request->session()->read('Auth.User.rule') , "admin") ): ?>
                 <li> 
                   <?= $this->Html->link('<i class="fa fa-users" aria-hidden="true"></i> Perfil', 
                       ['plugin'=>'AuthUser', 'controller'=>'users', 'action' => 'view'],
                       ['escape'=>false]
                       ) ?>
                 </li>
+                <?php endif; ?>
                 <li> 
                   <?= $this->Html->link('<i class="fa fa-print" aria-hidden="true"></i> Impressoras', 
                       ['plugin'=>'prints', 'controller'=>'printers', 'action' => 'index'],
                       ['escape'=>false]
                       ) ?>
                 </li>
+                <?php if( strcmp( $this->request->session()->read('Auth.User.rule') , "admin") ): ?>
                 <li> 
                   <?= $this->Html->link('<i class="fa fa-bar-chart" aria-hidden="true"></i> Charts', 
                       ['plugin'=>'Charts', 'controller'=>'jobs', 'action' => 'index'],
                       ['escape'=>false]
                       ) ?>
                 </li>
+                <?php endif; ?>
+                <?php if( strcmp( $this->request->session()->read('Auth.User.rule') , "admin") ): ?>
                 <li>
                   <?= $this->Html->link('<i class="fa fa-cogs" aria-hidden="true"></i> Configurações', 
                       ['plugin'=>'sys', 'controller'=>'settings', 'action' => 'index'],
                       ['escape'=>false]
                       ) ?> 
                 </li>
+                <?php endif; ?>
                 <li> 
                   <?= $this->Html->link('<i class="fa fa-question-circle-o" aria-hidden="true"></i> Ajuda', 
                       ['plugin'=>'sys', 'controller'=>'settings', 'action' => 'debug'],

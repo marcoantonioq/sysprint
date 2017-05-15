@@ -14,7 +14,6 @@ class UsersController extends AppController
 
     public function login(){
         if ($this->request->is('post')) {
-            $user = $this->Auth->identify();
             if ($this->AuthUsers->login()) {
                 return $this->redirect($this->AuthUsers->redirectUrl());
             }
@@ -66,6 +65,7 @@ class UsersController extends AppController
 
         if ($this->request->is(['patch', 'post', 'put'])) {
             $user = $this->Users->patchEntity($user, $this->request->getData());
+            pr( $user ); exit;
             if ($this->Users->save($user)) {
                 $this->Flash->success(__('The user has been saved.'), ['plugin' => 'Template']);
 

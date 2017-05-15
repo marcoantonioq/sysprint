@@ -67,16 +67,18 @@ class UsersTable extends Table
             ->notEmpty('password');
 
         $validator
-            ->add('role', 'inList', [
-                'rule' => ['inList', ['admin', 'author']],
+            ->allowEmpty('rule')
+            ->requirePresence('rule', 'create')
+            ->add('rule', 'inList', [
+                'rule' => ['inList', ['admin', 'user']],
                 'message' => 'Por favor informe uma função válida'
             ]);
 
         $validator
-            ->email('email')
-            ->requirePresence('email', 'create')
-            ->notEmpty('email')
-            ->add('email', 'unique', ['rule' => 'validateUnique', 'provider' => 'table']);
+            ->allowEmpty('email');
+            // ->email('email');
+            // ->requirePresence('email', 'create')
+            // ->add('email', 'unique', ['rule' => 'validateUnique', 'provider' => 'table']);
 
         $validator
             ->allowEmpty('adress');
@@ -90,17 +92,13 @@ class UsersTable extends Table
         return $validator;
     }
 
-    /**
-     * Returns a rules checker object that will be used for validating
-     * application integrity.
-     *
-     * @param \Cake\ORM\RulesChecker $rules The rules object to be modified.
-     * @return \Cake\ORM\RulesChecker
-     */
+    public function beforeSave($options = array()) {
+        // pr($options); exit;
+    }
     public function buildRules(RulesChecker $rules)
     {
         $rules->add($rules->isUnique(['username']));
-        $rules->add($rules->isUnique(['email']));
+        // $rules->add($rules->isUnique(['email']));
 
         return $rules;
     }

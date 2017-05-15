@@ -6,9 +6,7 @@ use Cake\Core\Configure;
 use Cake\Event\Event;
 use Cake\Routing\Router;
 
-use AuthUser\Controller\Component\AD;
-
-
+use AuthUser\Model\Entity\ActiveDirectory;
 
 class AuthUsersComponent extends Component
 {
@@ -49,10 +47,14 @@ class AuthUsersComponent extends Component
         return "/";
     }
 
-    public function login(){
+    public function login( ){
 
-        // pr(AD::getConnect());
-        // exit;
+        if ( $this->enableAD() ) {
+            if( ! ActiveDirectory::getConnect()->auth(
+                $this->request->data['username'], 
+                $this->request->data['password']
+            ) ) { return false; }
+        }
         if( $this->enable() ){
             $user = $this->getController()->Auth->identify();
             if ($user) {

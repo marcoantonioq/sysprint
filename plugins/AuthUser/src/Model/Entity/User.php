@@ -2,6 +2,7 @@
 namespace AuthUser\Model\Entity;
 
 use Cake\Auth\DefaultPasswordHasher;
+use Cake\ORM\TableRegistry;
 use Cake\ORM\Entity;
 
 /**
@@ -11,7 +12,7 @@ use Cake\ORM\Entity;
  * @property string $name
  * @property string $username
  * @property string $password
- * @property string $role
+ * @property string $rule
  * @property string $email
  * @property string $adress
  * @property string $thumbnailphoto
@@ -50,4 +51,41 @@ class User extends Entity
     protected $_hidden = [
         'password'
     ];
+
+    public function ldapSetEntries($userAD=array(), $password = null)
+    {
+        if(empty($userAD['0']['displayname']['0']))
+            return null;
+
+        $Users = TableRegistry::get('Users');        
+        $user_id = $Users->findByUsername( $userAD['0']['name']['0'] )->first()['id'];
+        if($user_id) {
+            $this->id = $user_id;            
+        }
+        if($password) {
+            $this->password = $password;
+        }
+        $this->adress = "Endereço";
+        $this->email = @$userAD['0']['mail']['0'];
+        $this->name = @$userAD['0']['displayname']['0'];
+        $this->rule = "user";
+        $this->status = 1;
+        $this->username = $userAD['0']['name']['0'];
+        
+        // $finfo = new finfo(FILEINFO_MIME_TYPE);
+        @$mime = explode(';', finfo_buffer($userAD['0']['thumbnailphoto']['0']));
+        // $this->thumbnailphoto = "data:image/jpeg;base64," . base64_encode($userAD['0']['thumbnailphoto']['0']);
+        // if (!empty($userAD['0']['memberof']['count']) && $userAD['0']['memberof']['count'] >= 1) {
+        //     foreach ($userAD['0']['memberof'] as $group) {
+        //         foreach (explode(',',$group) as $CNs) {
+        //             $cn=explode('=',$CNs);
+        //             if($cn[0]=="CN"){
+        //                 @$user['Group']['Group'][]=$cn[1];
+        //             }
+        //         }
+        //     }
+        // }
+        $Users->save($this);
+        return $this;
+    }
 }

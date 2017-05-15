@@ -61,7 +61,8 @@
     </table>
     <div class="row">
         <h4><?= __('Thumbnailphoto') ?></h4>
-        <?= $this->Text->autoParagraph(h($user->thumbnailphoto)); ?>
+        <?php echo "<img src='{$user->thumbnailphoto}' />"; ?>
+        &nbsp;
     </div>
     
 </div>

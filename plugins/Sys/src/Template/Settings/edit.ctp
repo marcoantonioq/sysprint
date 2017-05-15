@@ -43,7 +43,7 @@
                  ?>
             </div>
             <div id="AUTH" class="tab-pane fade">
-                <legend>Autenticação</legend>
+                <legend>Autenticação Simples</legend>
                     <?php 
                         echo $this->Form->control('SYSPRINT.MODULES.AUTH.enable',['label'=>'Habilitar','type'=>'checkbox']);
                         echo $this->Form->control('SYSPRINT.MODULES.AUTH.Config.authenticate.Form.fields.username',[

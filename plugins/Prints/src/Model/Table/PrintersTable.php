@@ -154,7 +154,6 @@ class PrintersTable extends Table
 
         $user = $this->Users->get($data['user_id'])->get('username');
         $printer = $data['printer_id'];
-        // pr($data); exit;
 
         foreach ($data['file'] as $file) {
             $path = $file['tmp_name'];
@@ -176,7 +175,8 @@ class PrintersTable extends Table
             foreach ($data['params'] as $key => $value){
                 $params .= "{$keyparams[$key]}{$value} ";
             }
-            $cmd = $this->testComand("lp")." -U {$user} -d {$printer} $params $path"; // pr($comand); exit;
+            $cmd = "lp -U {$user} -d {$printer} $params $path"; // pr($comand); exit;
+            // pr($cmd); exit;
             exec($cmd, $output, $return);
             exec("rm -rf $path {$file['tmp_name']}");
         }

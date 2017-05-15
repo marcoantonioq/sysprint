@@ -1,10 +1,10 @@
 <?php 
-namespace AuthUser\Controller\Component;
+namespace AuthUser\Model\Entity;
 
 use Cake\Core\Configure;
+use AuthUser\Model\Entity\User;
 
-
-class AD {
+class ActiveDirectory {
 
     private static $ldap_host;
     private static $ldap_port;
@@ -14,7 +14,8 @@ class AD {
     private static $suffix;
     private static $attr;
     private static $filter;
-    private static $ldap_connect;
+    private static $con;
+    private static $status_conect;
     private static $instance = null;
 
     /**
@@ -38,37 +39,52 @@ class AD {
         self::$ldap_user = $config['ldap_user'];
         self::$ldap_pass = $config['ldap_pass'];
         self::$suffix = $config['suffix'];
-        self::$attr = $config['attr'];
+        self::$attr = explode(',',$config['attr']);
         self::$filter = $config['filter'];
+    
+
         try {
-            $ldap_connect = ldap_connect( self::$ldap_host, self::$ldap_port) or die("Could not connect to ".self::$ldap_host);
-            ldap_set_option($ldap_connect, LDAP_OPT_NETWORK_TIMEOUT, 3);
-            ldap_set_option($ldap_connect, LDAP_OPT_TIMELIMIT, 3);
-            ldap_set_option($ldap_connect, LDAP_OPT_PROTOCOL_VERSION, 3);
-            $bind = @ldap_bind($ldap_connect, self::$ldap_user, self::$ldap_pass); 
-            self::$ldap_connect = $ldap_connect;
+            ldap_set_option(NULL, LDAP_OPT_DEBUG_LEVEL, 7);
+            putenv('LDAPTLS_REQCERT=never');
+            self::$con = ldap_connect( self::$ldap_host, self::$ldap_port);
+            if (!is_resource(self::$con)) trigger_error("Unable to connect to ".self::$ldap_host,E_USER_WARNING);
+
+            ldap_set_option(self::$con, LDAP_OPT_NETWORK_TIMEOUT, 3);
+            ldap_set_option(self::$con, LDAP_OPT_TIMELIMIT, 3);
+            ldap_set_option(self::$con, LDAP_OPT_PROTOCOL_VERSION, 3);
+            if( ldap_bind(self::$con, self::$ldap_user, self::$ldap_pass) ) {
+                self::$status_conect = true;
+            } else {
+                self::$status_conect = false;                
+            }
         } catch (Exception $e) { 
             echo "Erro ao conectar no servidor AD"; exit;
         }
         return self::$instance;
     }
 
-    public function search($filter){
-        $result=null;
-        try {
-          $read = ldap_search(self::$ldap_connect, self::$base_dn, $filter, self::$attr); # or die("Erro search");
-          $result = ldap_get_entries(self::$ldap_connect, $read);
-        } catch (Exception $e) {}
-        return $result;
+    public function searchUser($username, $password = null){
+        $filter = "(".self::$filter."(name={$username}))";
+        $read = @ldap_search(self::$con, self::$base_dn, $filter, self::$attr);
+        if($read) {
+            $User = new User();
+            return $User->ldapSetEntries(ldap_get_entries(self::$con, $read), $password);
+        } else {
+            return false;
         }
-        public function auth($user, $password){
-        return (@ldap_bind(self::$ldap_connect, $ldap_user.self::$suffix, $ldap_pass))?true:false;
+    }
+    
+    public function auth($user, $password){
+        if( @ldap_bind(self::$con, $user.self::$suffix, $password) ) {
+            return $this->searchUser($user, $password);
+        } else {
+            return false;
+        }
     }
 
     public function read($username){
         $user = ['User'=>[],'Group'=>[]];
-            $filter = "(".self::$filter."(name={$username}))"; // username
-            $userAD = self::search($filter);
+            $userAD = self::searchUser($username);
             if(empty($userAD['0']['displayname']['0']))
                 return null;
         try {
@@ -94,6 +110,25 @@ class AD {
         return $user;
     }
 
+    private function Synchronize($username)
+    {
+        $registration = $this->GetRegistration();
+
+        $registration->Synchronize(
+            new AuthenticatedUser(
+                $username,
+                $this->user->GetEmail(),
+                $this->user->GetFirstName(),
+                $this->user->GetLastName(),
+                $this->password,
+                Configuration::Instance()->GetKey(ConfigKeys::LANGUAGE),
+                Configuration::Instance()->GetDefaultTimezone(),
+                $this->user->GetPhone(), $this->user->GetInstitution(),
+                $this->user->GetTitle())
+        );
+    }
+
+
     public function syc($users = array()){
         foreach ($users as $key => $user) {
           // pr($user);
@@ -105,7 +140,7 @@ class AD {
 
     protected function __construct() { }
     public function __destruct(){
-        @ldap_close(self::$ldap_connect);
+        @ldap_close(self::$con);
     }
     private function __clone() { }
     private function __wakeup() { }

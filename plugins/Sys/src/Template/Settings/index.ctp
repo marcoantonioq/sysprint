@@ -55,7 +55,6 @@ use Cake\Network\Exception\NotFoundException;
             <?php Debugger::checkSecurityKeys(); ?>
         </div>
     </div>
-
     <div class="row">
         <div class="col-md-12">
             <ul>

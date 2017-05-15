@@ -43,13 +43,12 @@ use Cake\Routing\Route\DashedRoute;
  */
 Router::defaultRouteClass(DashedRoute::class);
 
-
 // Router::scope('/', function (RouteBuilder $routes) {
 //     $routes->connect('/pages/*', ['controller' => 'Pages', 'action' => 'display']);
 //     $routes->fallbacks(DashedRoute::class);
 // });
-Router::scope('/', ['plugin' => 'Sys'], function (RouteBuilder $routes) {
-    $routes->connect('/', ['controller' => 'settings', 'action' => 'index']);
+Router::scope('/', ['plugin' => 'prints'], function (RouteBuilder $routes) {
+    $routes->connect('/', ['controller' => 'printers', 'action' => 'index']);
     // $routes->connect('/pages/*', ['controller' => 'Pages', 'action' => 'display']);
     $routes->fallbacks(DashedRoute::class);
 });
