@@ -35,8 +35,8 @@
             <td><?= h($user->username) ?></td>
         </tr>
         <tr>
-            <th scope="row"><?= __('Role') ?></th>
-            <td><?= h($user->role) ?></td>
+            <th scope="row">Grupo</th>
+            <td><?= h($user->rule) ?></td>
         </tr>
         <tr>
             <th scope="row"><?= __('Email') ?></th>

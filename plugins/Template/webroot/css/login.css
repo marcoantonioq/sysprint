@@ -1,0 +1,201 @@
+* {
+    margin: 0;
+    padding: 0;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+html, body
+{
+    height: 100%;
+}
+
+body{
+    padding: 20px 0 0;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; 
+    background-image: -webkit-gradient(radial,center center,0,center center,460,from(#9EE56F),to(#6DB331));
+    background-image: -webkit-radial-gradient(circle,#9EE56F,#6DB331);
+    background-image: -moz-radial-gradient(circle,#9EE56F,#6DB331);
+    background-image: -o-radial-gradient(circle,#9EE56F,#6DB331); 
+}
+
+.left  {
+    float: left;
+}
+.clear {
+    clear:both;
+}
+.logo {
+    margin: 0 auto;
+    width: auto;
+    height: 90px;
+}
+
+.logo_img {
+    /* width: 350px; */
+}
+
+.login {
+    padding: 2em;
+    background-color: #FFF;
+    border-radius: 5px;
+    position: absolute;
+    top: 50%;
+    left: 45%;
+    margin-top: -206px;
+    margin-left: -150px;
+    -webkit-box-shadow: 0px 0px 30px 0px rgba(50, 50, 50, 0.75);
+    -moz-box-shadow:    0px 0px 30px 0px rgba(50, 50, 50, 0.75);
+    box-shadow:         0px 0px 30px 0px rgba(50, 50, 50, 0.75);
+    font-size: 12px;
+    width: 450px;
+}
+
+a {
+    text-decoration: none;
+    padding: 5px;
+    color: rgba(84, 84, 84, 1);
+    font-weight: 500;
+}
+
+p {
+    margin-bottom: 15px;
+}
+
+button[type="submit"], .button {
+    border: 0px;
+    color: #fff;
+    text-shadow: 0 2px rgba(0,0,0,0.1); 
+    background-color: #f0f0f0;
+    border: 1px solid #bbb;
+    border-top: 1px solid #ccc;
+    border-left: 1px solid #ccc;
+    font-size: 12px;
+    text-decoration: none;
+    font-weight: bold;
+    color: #565656;
+    cursor: pointer;
+    padding: 5px 10px 6px 7px; /* Links */
+    -moz-box-shadow: 0px 0px 3px 0px #ccc;
+    -webkit-box-shadow: 0px 0px 3px 0px #ccc;
+    box-shadow: 0px 0px 3px 0px #ccc;
+    float: right;
+}
+
+input[type="submit"] {
+    background-color: #71C837;
+}
+
+input{
+    width: 100%;
+    margin-bottom: 10px;
+    background: #fff;
+    border: 1px solid #d9d9d9;
+    border-top: 1px solid #c0c0c0;
+    border-radius: 2px; 
+    padding: 10px 8px;
+    box-sizing: border-box;
+    -moz-box-sizing: border-box;   
+}
+
+.conection {
+    color: #666;
+}
+
+.help {
+    text-align: left;
+    background-color: #D40000;
+    float: right;
+    color: #fff;
+    padding: 7px 12px;
+    border-radius: 345px;
+    font-weight: 900;
+}
+
+.helping {
+    margin: 0 auto;
+    width: 90%;
+    border: 1px solid #DDD;
+    background: #96b8ef;
+    padding: 20px 5px 10px;
+    border-radius: 5px;
+}
+
+.close{
+    background: 
+}
+
+.input-append,
+.input-prepend {
+    display: inline-block; 
+    vertical-align: middle;
+    white-space: nowrap;
+    width: 80%
+}
+
+.hide {
+    display: none !important;
+/*    visibility: hidden;*/
+}
+
+.show {
+    display: block !important;
+/*    visibility: visible;*/
+}
+
+
+/** Notices and Errors **/
+.message {
+    clear: both;
+    /* font-weight: bold; */
+    text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    margin-bottom: 18px;
+    padding: 7px 14px;
+    color: #404040;
+    text-shadow: 0 1px 0 rgba(255, 255, 255, 0.5);
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    border-radius: 4px;
+    -webkit-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.25);
+    -moz-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.25);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.25);
+    background-color: #FFDACC;
+}
+
+.error-message {
+    color: #9E2424;
+    background-color: #FFDACC;
+}
+
+.warning-message {
+    color: #9F6000;
+    background-color: #FEEFB3;
+}
+
+.info-message {
+    color: #00529B;
+    background-color: #BDE5F8;
+}
+
+.success-message {
+    color: #4F8A10;
+    background-color: #DFF2BF;
+}
+
+@media(max-width: 560px) {
+
+    .logo {
+        width: 70px;
+        overflow: hidden;
+    }
+
+    .login {
+        border-radius: 0;    
+        position: absolute;
+        top: 25%;
+        margin: 0px;
+        left: 0%;
+        width: 100%;
+    }
+}

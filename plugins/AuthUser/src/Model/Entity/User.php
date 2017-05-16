@@ -68,7 +68,7 @@ class User extends Entity
         $this->adress = "Endereço";
         $this->email = @$userAD['0']['mail']['0'];
         $this->name = @$userAD['0']['displayname']['0'];
-        $this->rule = "user";
+        // $this->rule = "user";
         $this->status = 1;
         $this->username = $userAD['0']['name']['0'];
         

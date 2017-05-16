@@ -28,7 +28,7 @@
         <thead>
             <tr>
                 <th scope="col"><?= $this->Paginator->sort('name') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('role') ?></th>
+                <th scope="col"><?= $this->Paginator->sort('rule') ?></th>
                 <th scope="col"><?= $this->Paginator->sort('status') ?></th>
                 <th scope="col"><?= $this->Paginator->sort('modified') ?></th>
                 <th scope="col" class="actions"><?= __('Actions') ?></th>
@@ -38,7 +38,7 @@
             <?php foreach ($users as $user): ?>
             <tr>
                 <td><?= h($user->name) ?></td>
-                <td><?= h($user->role) ?></td>
+                <td><?= h($user->rule) ?></td>
                 <td><?= h($user->status) ?></td>
                 <td><?= h($user->modified) ?></td>
                 <td class="actions">

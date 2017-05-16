@@ -5,6 +5,23 @@
 
 ?>
 
+
+<div class="row">
+        <?php
+        echo $this->Html->link('<i class="fa fa-lock"></i> '.$this->request->session()->read('Auth.User.name').' | Sair?',
+            [
+                'plugin'=>'AuthUser',
+                'controller' => 'users', 'action' => 'logout'
+            ],
+            [
+                'class'=> 'btn btn-default pull-right',
+                'escape'=>false
+            ])." ";
+            ?>
+</div>
+
+
+
 <div class="row">
     <?php foreach ($printers as $key => $printer): ?>
             <div class="col-xs-12 col-sm-3 .col-md-2 list-printers">

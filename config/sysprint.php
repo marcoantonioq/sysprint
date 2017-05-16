@@ -14,9 +14,10 @@
     array (
       'AUTH' => 
       array (
-        'enable' => '0',
+        'enable' => '1',
         'Config' => 
         array (
+          'authorize' => array('Controller'),
           'loginRedirect' => '/',
           'logoutRedirect' => '/',
           'authError' => 'Você não está autorizado a acessar esse local!',
@@ -45,7 +46,7 @@
       ),
       'AD' => 
       array (
-        'enable' => '1',
+        'enable' => '0',
         'Config' => 
         array (
           'ldap_host' => '10.11.0.10',
@@ -54,7 +55,7 @@
           'ldap_user' => 'goiservice',
           'ldap_pass' => 'Brasil05',
           'suffix' => '@ifg.br',
-          'attr' => 'name,displayname,mail,mobile,homephone,telephonenumber,streetaddress,postalcode,physicaldeliveryofficename,l,group,thumbnailphoto,memberof',
+          'attr' => 'name,displayname,mail,mobile,homephone,telephonenumber,streetaddress,postalcode,physicaldeliveryofficename,l,group,thumbnailphoto,memberof,department',
           'filter' => '&(objectClass=user)(!(extensionattribute2=*Aluno*))',
         ),
       ),

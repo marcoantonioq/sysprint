@@ -5,7 +5,7 @@
 <!--
 /*******************************************************************************
   Sistema de impressão
-  2015 Marco Antônio Queiroz <marco.aq7@gmail.com>
+  2017 Marco Antônio Queiroz <marco.aq7@gmail.com>
 *******************************************************************************/
 
   * Copyright 2017
@@ -51,14 +51,14 @@
 
 
 <body>
-    <div id="wrapper" class="">
+    <div id="wrapper" class="toggled">
         <!-- Sidebar -->
         <div id="sidebar-wrapper">
             <ul class="sidebar-nav hidden-print">
                 <li class="sidebar-brand">
                     <?= $this->Html->link('<i class="fa fa-desktop" aria-hidden="true"></i> Home', '/',['escape'=>false]) ?>
                 </li>
-                <?php if( strcmp( $this->request->session()->read('Auth.User.rule') , "admin") ): ?>
+                <?php if( !strcmp( $this->request->session()->read('Auth.User.rule') , "admin") ): ?>
                 <li> 
                   <?= $this->Html->link('<i class="fa fa-users" aria-hidden="true"></i> Perfil', 
                       ['plugin'=>'AuthUser', 'controller'=>'users', 'action' => 'view'],
@@ -72,7 +72,7 @@
                       ['escape'=>false]
                       ) ?>
                 </li>
-                <?php if( strcmp( $this->request->session()->read('Auth.User.rule') , "admin") ): ?>
+                <?php if( !strcmp( $this->request->session()->read('Auth.User.rule') , "admin") ): ?>
                 <li> 
                   <?= $this->Html->link('<i class="fa fa-bar-chart" aria-hidden="true"></i> Charts', 
                       ['plugin'=>'Charts', 'controller'=>'jobs', 'action' => 'index'],
@@ -80,7 +80,7 @@
                       ) ?>
                 </li>
                 <?php endif; ?>
-                <?php if( strcmp( $this->request->session()->read('Auth.User.rule') , "admin") ): ?>
+                <?php if( !strcmp( $this->request->session()->read('Auth.User.rule') , "admin") ): ?>
                 <li>
                   <?= $this->Html->link('<i class="fa fa-cogs" aria-hidden="true"></i> Configurações', 
                       ['plugin'=>'sys', 'controller'=>'settings', 'action' => 'index'],

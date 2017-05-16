@@ -52,7 +52,7 @@ class ActiveDirectory {
             ldap_set_option(self::$con, LDAP_OPT_NETWORK_TIMEOUT, 3);
             ldap_set_option(self::$con, LDAP_OPT_TIMELIMIT, 3);
             ldap_set_option(self::$con, LDAP_OPT_PROTOCOL_VERSION, 3);
-            if( ldap_bind(self::$con, self::$ldap_user, self::$ldap_pass) ) {
+            if( @ldap_bind(self::$con, self::$ldap_user, self::$ldap_pass) ) {
                 self::$status_conect = true;
             } else {
                 self::$status_conect = false;                

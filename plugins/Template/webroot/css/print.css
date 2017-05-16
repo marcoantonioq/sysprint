@@ -38,6 +38,10 @@ body {
   height: 100%;
 }
 
+.fa-angle-double-right {
+  padding: 2px 30px 20px 0;
+}
+
 .input, a.btn {
   margin: 10px 0px 10px 0;
 }
@@ -98,4 +102,18 @@ form .error-message {
   color: #9E2424;
   text-shadow: none;
   /* padding: 10px; */
+}
+
+
+/*Tables*/
+sorting-asc a:before, table th a.asc:before {
+  content: '⇣ ' !important;
+}
+sorting-desc a:before, table th a.desc:before {
+  content: '⇡ ' !important;;
+}
+
+table th a:before {
+  content: '⇣⇡ ';
+  font-size: 10px;
 }
