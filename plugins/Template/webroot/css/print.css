@@ -27,7 +27,7 @@ html ::-webkit-scrollbar-thumb:hover {
 body {
   margin: 0 auto;
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; 
-  font-size: 12px;
+  font-size: 13px;
   font-weight: normal;
   line-height: 18px;
   color: #404040;
