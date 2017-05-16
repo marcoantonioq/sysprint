@@ -17,6 +17,7 @@ return [
             "AUTH" => [
                 "enable"=> 0,
                 "Config" => [
+                    'authorize' => ['Controller'],
                     'loginRedirect' => '/',
                     'logoutRedirect' => '/',
                     'loginAction' => [
@@ -28,7 +29,7 @@ return [
                     'authenticate' => [
                         'Form' => [
                             'fields' => ['username' => 'username','password' => 'password'],
-                            'scope'  => ['Users.status' => 1],
+                            // 'scope'  => ['Users.status' => 1],
                         ]
                     ]
                 ]

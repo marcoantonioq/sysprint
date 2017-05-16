@@ -1,9 +1,8 @@
 # CakePHP 3
 
 /sftp-config.json
-/config/sysprint.php
-
 /config/app.php
+/config/sysprint.php
 
 /tmp/debug_kit.sqlite
 

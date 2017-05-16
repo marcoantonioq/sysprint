@@ -8,7 +8,13 @@
 <?= $this->Flash->render('auth') ?>
 
 <?= $this->Form->create() ?>
-        <h4 class="text-center">Por favor informe seu usuário e senha</h4>
+		<?php 
+			echo $this->Html->image('Template./img/banner.png',
+				['class'=>"text-center"]
+			);
+		 ?>
+
+        <h6>Por favor informe seu usuário e senha</h6>
 
         <?= $this->Form->input('username',['label'=>false, 'placeholder'=>'IFG-ID']) ?>
         <?= $this->Form->input('password',['label'=>false, 'placeholder'=>'SENHA']) ?>

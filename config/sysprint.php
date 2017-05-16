@@ -17,7 +17,7 @@
         'enable' => '1',
         'Config' => 
         array (
-          'authorize' => array('Controller'),
+          // 'authorize' => array('Controller'),
           'loginRedirect' => '/',
           'logoutRedirect' => '/',
           'authError' => 'Você não está autorizado a acessar esse local!',
@@ -27,10 +27,7 @@
             'controller' => 'Users',
             'action' => 'login',
           ),
-          'flash' => 
-          array (
-            'element' => 'Template.error',
-          ),
+          'flash' => ['element' => 'Template.error'],
           'authenticate' => 
           array (
             'Form' => 
@@ -46,7 +43,7 @@
       ),
       'AD' => 
       array (
-        'enable' => '0',
+        'enable' => '1',
         'Config' => 
         array (
           'ldap_host' => '10.11.0.10',
