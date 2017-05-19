@@ -67,24 +67,26 @@ class User extends Entity
         }
         $this->adress = "Endereço";
         $this->email = @$userAD['0']['mail']['0'];
+        $this->email = @$userAD['0']['mail']['0'];
         $this->name = @$userAD['0']['displayname']['0'];
         // $this->rule = "user";
+        $this->department = @$userAD[0]['department'][0];
         $this->status = 1;
         $this->username = $userAD['0']['name']['0'];
         
         // $finfo = new finfo(FILEINFO_MIME_TYPE);
         @$mime = explode(';', finfo_buffer($userAD['0']['thumbnailphoto']['0']));
-        // $this->thumbnailphoto = "data:image/jpeg;base64," . base64_encode($userAD['0']['thumbnailphoto']['0']);
-        // if (!empty($userAD['0']['memberof']['count']) && $userAD['0']['memberof']['count'] >= 1) {
-        //     foreach ($userAD['0']['memberof'] as $group) {
-        //         foreach (explode(',',$group) as $CNs) {
-        //             $cn=explode('=',$CNs);
-        //             if($cn[0]=="CN"){
-        //                 @$user['Group']['Group'][]=$cn[1];
-        //             }
-        //         }
-        //     }
-        // }
+        $this->thumbnailphoto = "data:image/jpeg;base64," . base64_encode($userAD['0']['thumbnailphoto']['0']);
+        if (!empty($userAD['0']['memberof']['count']) && $userAD['0']['memberof']['count'] >= 1) {
+            foreach ($userAD['0']['memberof'] as $group) {
+                foreach (explode(',',$group) as $CNs) {
+                    $cn=explode('=',$CNs);
+                    if($cn[0]=="CN"){
+                        @$user['Group']['Group'][]=$cn[1];
+                    }
+                }
+            }
+        }
         $Users->save($this);
         return $this;
     }

@@ -39,6 +39,10 @@
             <td><?= h($user->rule) ?></td>
         </tr>
         <tr>
+            <th scope="row">Departamento</th>
+            <td><?= $user->department ?></td>
+        </tr>
+        <tr>
             <th scope="row"><?= __('Email') ?></th>
             <td><?= h($user->email) ?></td>
         </tr>

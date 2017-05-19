@@ -43,7 +43,7 @@ return [
                     "ldap_user"=> "user_ad",
                     "ldap_pass"=> "password_ad",
                     "suffix"=> "@sysprint.br",
-                    "attr"=> "name,displayname,mail,mobile,homephone,telephonenumber,streetaddress,postalcode,physicaldeliveryofficename,l,group,thumbnailphoto,memberof",
+                    'attr' => 'name,displayname,mail,mobile,homephone,telephonenumber,streetaddress,postalcode,physicaldeliveryofficename,l,group,thumbnailphoto,memberof,department',
                     "filter"=> ""
                 ]
             ],

@@ -123,6 +123,7 @@ class JobsTable extends Table
             $data->host = "{$job['job-originating-host-name']}";
             $data->file = "{$job['job-name']}";
             $data->params = "{$job['media']} - {$job['media']}";
+            // pr($data); exit;
             $this->save( $data );
         }
     }
@@ -139,7 +140,7 @@ class JobsTable extends Table
                 $charts_data = $query->find("all",[])
                         ->select([
                             'labels'=>'Printers.name',
-                            'sum'=>$query->func()->sum('Jobs.copies * Jobs.pages'),
+                            'sum'=> $query->func()->sum('Jobs.copies * Jobs.pages'),
                         ])
                         ->contain(['Printers'])
                         // ->order(['sum'=>'desc'])
@@ -171,6 +172,8 @@ class JobsTable extends Table
                 return null;
                 break;
         }
+        
+        // pr( $charts_data->toArray() ); exit;
 
         foreach ($charts_data as $charts) {
             $labels[] = $charts->labels;

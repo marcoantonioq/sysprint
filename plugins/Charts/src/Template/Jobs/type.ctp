@@ -21,9 +21,6 @@
 <div class="row-fluid">
 
     <canvas id="myChart" ></canvas>
-        <?php 
-        // pr($charts->datasets[0]['data']); exit;
-             ?>
         <summary>Resumo</summary>
         <table class="table">
             <tr>

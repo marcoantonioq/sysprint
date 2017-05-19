@@ -7,8 +7,10 @@ Este trabalho aborda os serviços CUPS com autenticação integrada ao AD, atrav
 
 - HTTP Server. Por exemplo: Apache. De preferência com mod_rewrite ativo, mas não é obrigatório.
 - PHP 5.6.0 ou superior.
-- extensão mbstring
-- extensão intl
+- extensão php mbstring
+- extensão php intl
+- servidor cups configurado
+- servidor lampp
 
 Suporta uma variedade de mecanismos de armazenamento de banco de dados
 
@@ -20,10 +22,28 @@ Suporta uma variedade de mecanismos de armazenamento de banco de dados
 # Configuração
 
 - Alterando o limite de memória 
-	1. Acesse arquivo PHP.ini;
-	2. Abra o arquivo baixado utilizando um editor de textos de sua preferência e procure pela diretiva "memory_limit";
+	1. Acesse arquivo config/PHP.ini;
+	2. Acesse arquivo config/sysprint.ini;
+	3. Abra o arquivo baixado utilizando um editor de textos de sua preferência e procure pela diretiva "memory_limit";
 	Altere a diretiva conforme sua necessidade(recomendado 256M);
 
 # Utilização
+
+![alt text](http://url/to/img.png)
+
+
+[url=https://postimg.org/image/sc7buvhqj/][img]https://s1.postimg.org/sc7buvhqj/image_6.png[/img][/url]
+
+[url=https://postimg.org/image/5owo2grkb/][img]https://s1.postimg.org/5owo2grkb/image_5.png[/img][/url]
+
+[url=https://postimg.org/image/qn2u0jrez/][img]https://s1.postimg.org/qn2u0jrez/image_4.png[/img][/url]
+
+[url=https://postimg.org/image/647xvhdhn/][img]https://s1.postimg.org/647xvhdhn/image_3.png[/img][/url]
+
+[url=https://postimg.org/image/xg36wti8b/][img]https://s1.postimg.org/xg36wti8b/image_2.png[/img][/url]
+
+[url=https://postimg.org/image/ec9vgh5e3/][img]https://s1.postimg.org/ec9vgh5e3/image_1.png[/img][/url]
+
+[url=https://postimg.org/image/fftzsfq17/][img]https://s1.postimg.org/fftzsfq17/image.png[/img][/url]
 
 ...

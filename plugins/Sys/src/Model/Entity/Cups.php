@@ -24,7 +24,7 @@ class Cups extends Entity
     	return (object)Server::shell('readLogs', $this->cups_log);
     }
 
-    public function readLogsToJobs($value='')
+    public static function readLogsToJobs($value='')
     {
     	$jobs = null;
     	foreach ($this->readLogs() as $key => $job_json) {
