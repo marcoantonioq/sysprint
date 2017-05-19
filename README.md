@@ -29,21 +29,18 @@ Suporta uma variedade de mecanismos de armazenamento de banco de dados
 
 # Utilização
 
-![alt text](http://url/to/img.png)
+![alt text](https://s1.postimg.org/sc7buvhqj/image_6.png)
 
+![alt text](https://s1.postimg.org/5owo2grkb/image_5.png)
 
-[url=https://postimg.org/image/sc7buvhqj/][img]https://s1.postimg.org/sc7buvhqj/image_6.png[/img][/url]
+![alt text](https://s1.postimg.org/qn2u0jrez/image_4.png)
 
-[url=https://postimg.org/image/5owo2grkb/][img]https://s1.postimg.org/5owo2grkb/image_5.png[/img][/url]
+![alt text](https://s1.postimg.org/647xvhdhn/image_3.png)
 
-[url=https://postimg.org/image/qn2u0jrez/][img]https://s1.postimg.org/qn2u0jrez/image_4.png[/img][/url]
+![alt text](https://s1.postimg.org/xg36wti8b/image_2.png)
 
-[url=https://postimg.org/image/647xvhdhn/][img]https://s1.postimg.org/647xvhdhn/image_3.png[/img][/url]
+![alt text](https://s1.postimg.org/ec9vgh5e3/image_1.png)
 
-[url=https://postimg.org/image/xg36wti8b/][img]https://s1.postimg.org/xg36wti8b/image_2.png[/img][/url]
-
-[url=https://postimg.org/image/ec9vgh5e3/][img]https://s1.postimg.org/ec9vgh5e3/image_1.png[/img][/url]
-
-[url=https://postimg.org/image/fftzsfq17/][img]https://s1.postimg.org/fftzsfq17/image.png[/img][/url]
+![alt text](https://s1.postimg.org/fftzsfq17/image.png)
 
 ...
