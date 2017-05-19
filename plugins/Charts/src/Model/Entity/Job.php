@@ -38,4 +38,5 @@ class Job extends Entity
         '*' => true,
         'id' => false
     ];
+
 }

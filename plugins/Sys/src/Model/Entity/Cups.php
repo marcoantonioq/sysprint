@@ -24,10 +24,12 @@ class Cups extends Entity
     	return (object)Server::shell('readLogs', $this->cups_log);
     }
 
-    public static function readLogsToJobs($value='')
+    public function readLogsToJobs($value='')
     {
     	$jobs = null;
-    	foreach ($this->readLogs() as $key => $job_json) {
+        $logs = $this->readLogs();
+
+    	foreach ($logs as $key => $job_json) {
     		$job = json_decode($job_json, true);
             $time = str_replace(array("[", "]"), "",$job['time']);
             $time = preg_replace("/:/"," ",$time,1);

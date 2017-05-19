@@ -79,7 +79,7 @@ class PrintersController extends AppController
     public function spool($print_default=null) {
         $spool = new SpoolForm();
         if ($this->request->is('post')) {
-            $this->Printers->sendPrint($this->request->data);
+            $this->Printers->print($this->request->data);
             $this->Flash->success('Impressão enviada.', ['plugin' => 'Template']);
             // $this->Printers->sendEmail($user['User']['email'], $message);
             return $this->redirect(['action' => 'index']);

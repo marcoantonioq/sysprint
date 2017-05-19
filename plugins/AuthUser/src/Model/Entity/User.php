@@ -57,7 +57,7 @@ class User extends Entity
         if(empty($userAD['0']['displayname']['0']))
             return null;
 
-        $Users = TableRegistry::get('Users');        
+        $Users = TableRegistry::get('Users');
         $user_id = $Users->findByUsername( $userAD['0']['name']['0'] )->first()['id'];
         if($user_id) {
             $this->id = $user_id;            

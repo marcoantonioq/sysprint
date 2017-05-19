@@ -113,21 +113,20 @@ class JobsTable extends Table
             $Printer->name = $job['print'];
             $this->Printers->save($Printer);
 
-            $data = $this->newEntity();
-            $data->id = $job['job'];
-            $data->user_id = $User->id;
-            $data->printer_id = $Printer->id;
-            $data->date = $job['time'];
-            $data->pages = $job['pages'];
-            $data->copies = $job['copies'];
-            $data->host = "{$job['job-originating-host-name']}";
-            $data->file = "{$job['job-name']}";
-            $data->params = "{$job['media']} - {$job['media']}";
-            // pr($data); exit;
-            $this->save( $data );
+            $Job = $this->newEntity([
+                "user_id" => $User->id,
+                "printer_id" => $Printer->id,
+                "date" => $job['time'],
+                "pages" => $job['pages'],
+                "copies" => $job['copies'],
+                "host" => "{$job['job-originating-host-name']}",
+                "file" => "{$job['job-name']}",
+                "params" => "{$job['media']} - {$job['media']}",
+            ]);
+            $Job->set('id', $job['job']);
+            $this->save( $Job );
         }
     }
-
 
 
     public function getCharts($type)

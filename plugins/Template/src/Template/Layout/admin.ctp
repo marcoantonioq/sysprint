@@ -51,7 +51,7 @@
 
 
 <body>
-    <div id="wrapper" class="toggled">
+    <div id="wrapper" class="">
         <!-- Sidebar -->
         <div id="sidebar-wrapper">
             <ul class="sidebar-nav hidden-print">

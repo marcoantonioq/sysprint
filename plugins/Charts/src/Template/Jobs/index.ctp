@@ -22,11 +22,21 @@
             ?>
 </div>
 
+<form class="navbar-form navbar-left">
+    <div class="form-group">
+        <input type="text" class="form-control" placeholder="Search">
+        <select class="form-control" name="select">
+            <option value="valor1" selected>Impressora</option>
+            <option value="valor2">Impressora 1</option> 
+            <option value="valor3">Impressora 1</option>
+        </select>
+    </div>
+    <button type="submit" class="btn btn-default">Buscar</button>
+</form>
+
 <?=$this->element('Charts.menu_charts'); ?>
 
-
 <div class="row-fluid">
-    <h3><?= __('Jobs') ?></h3>
     <div class="table-responsive">
     <table cellpadding="0" cellspacing="0" class="table">
         <thead>
