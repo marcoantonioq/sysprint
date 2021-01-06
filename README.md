@@ -29,18 +29,6 @@ Suporta uma variedade de mecanismos de armazenamento de banco de dados
 
 # Utilização
 
-![alt text](https://s1.postimg.org/sc7buvhqj/image_6.png)
-
-![alt text](https://s1.postimg.org/5owo2grkb/image_5.png)
-
-![alt text](https://s1.postimg.org/qn2u0jrez/image_4.png)
-
-![alt text](https://s1.postimg.org/647xvhdhn/image_3.png)
-
-![alt text](https://s1.postimg.org/xg36wti8b/image_2.png)
-
-![alt text](https://s1.postimg.org/ec9vgh5e3/image_1.png)
-
-![alt text](https://s1.postimg.org/fftzsfq17/image.png)
+![alt text](https://raw.githubusercontent.com/marcoantonioq/sysprint/master/demo/sysprint.gif)
 
 ...
